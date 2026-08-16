@@ -18,7 +18,6 @@ type Order = {
   deliveryPrice: string | number;
   totalPrice: string | number;
   status: string;
-  status: string;
   createdAt: string;
 };
 
