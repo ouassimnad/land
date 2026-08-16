@@ -348,9 +348,7 @@ export default function Storefront({ productData = STATIC_PRODUCT }: { productDa
                   {productData.sizes.map((size) => <button className={`size-button ${selectedSize === size ? "selected" : ""}`} key={size} onClick={() => setSelectedSize(size)} type="button">{size}</button>)}
                 </div>
               </div>
-              <div className="hero-actions">
-                <a className="text-button" href="#details">{t.details} <Icon name="chevron" size={15} /></a>
-              </div>
+
             </div>
 
             <div className="hero-gallery">
@@ -370,16 +368,7 @@ export default function Storefront({ productData = STATIC_PRODUCT }: { productDa
 
         <section className="order-section" id="order">
           <div className="order-shell">
-            <div className="order-intro">
-              <div className="section-kicker">{t.orderKicker}</div>
-              <h2 className="section-title">{t.orderTitle}</h2>
-              <p className="section-description">{t.orderDescription}</p>
-              <div className="order-perks">
-                <div className="order-perk"><Icon name="check" size={18} />{t.secure}</div>
-                <div className="order-perk"><Icon name="check" size={18} />{t.deliveryTime}</div>
-                <div className="order-perk"><Icon name="check" size={18} />{t.return}</div>
-              </div>
-            </div>
+
 
             <form className="order-card" onSubmit={submitOrder}>
               <h3 className="form-heading">{t.orderFormTitle}</h3>
@@ -407,11 +396,7 @@ export default function Storefront({ productData = STATIC_PRODUCT }: { productDa
           </div>
         </section>
 
-        <section className="trust-strip" id="details">
-          <div className="trust-item"><span className="trust-icon"><Icon name="truck" size={17} /></span>{t.deliveryTime}</div>
-          <div className="trust-item"><span className="trust-icon"><Icon name="shield" size={17} /></span>{t.secure}</div>
-          <div className="trust-item"><span className="trust-icon"><Icon name="gift" size={17} /></span>{t.return}</div>
-        </section>
+
 
         <section className="reviews-section" id="reviews">
           <div className="reviews-heading">
