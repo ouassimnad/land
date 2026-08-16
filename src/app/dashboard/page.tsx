@@ -213,8 +213,53 @@ function ProductsTab({ products, onUpdate }: { products: DBProduct[]; onUpdate: 
             <textarea required value={editing.description || ""} onChange={e => setEditing({...editing, description: e.target.value})} className="w-full p-2 border rounded-md min-h-[100px]" />
           </div>
           <div>
-            <label className="block text-sm font-medium mb-1">رابط الصورة الرئيسية</label>
-            <input required value={editing.image || ""} onChange={e => setEditing({...editing, image: e.target.value})} className="w-full p-2 border rounded-md" dir="ltr" />
+            <label className="block text-sm font-medium mb-2">صور المنتج</label>
+            <div className="flex flex-wrap gap-3 mb-3">
+              {(editing.image || "").split(",").filter(Boolean).map((img, i) => (
+                <div key={i} className="relative group">
+                  <img src={img.trim()} alt={`صورة ${i + 1}`} className="w-24 h-24 object-cover rounded-lg border" />
+                  <button type="button" onClick={() => {
+                    const imgs = (editing.image || "").split(",").filter(Boolean);
+                    imgs.splice(i, 1);
+                    setEditing({...editing, image: imgs.join(",")});
+                  }} className="absolute -top-2 -right-2 bg-red-500 text-white w-5 h-5 rounded-full text-xs flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">×</button>
+                </div>
+              ))}
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="flex items-center justify-center gap-2 cursor-pointer bg-[#425044] text-white px-4 py-2.5 rounded-md text-sm hover:bg-[#344036] transition-colors">
+                <span>📷 رفع صورة من جهازك</span>
+                <input type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={async (e) => {
+                  const files = e.target.files;
+                  if (!files?.length) return;
+                  const currentImages = (editing.image || "").split(",").filter(Boolean);
+                  for (const file of Array.from(files)) {
+                    const fd = new FormData();
+                    fd.append("file", file);
+                    try {
+                      const res = await fetch("/api/upload", { method: "POST", body: fd });
+                      const data = await res.json();
+                      if (data.url) currentImages.push(data.url);
+                      else alert(data.error || "تعذر رفع الصورة");
+                    } catch { alert("تعذر رفع الصورة"); }
+                  }
+                  setEditing({...editing, image: currentImages.join(",")});
+                  e.target.value = "";
+                }} />
+              </label>
+              <div className="text-center text-xs text-gray-400">أو أضف رابط صورة</div>
+              <div className="flex gap-2">
+                <input id="urlInput" className="flex-1 p-2 border rounded-md text-sm" dir="ltr" placeholder="الصق رابط الصورة هنا" />
+                <button type="button" onClick={() => {
+                  const input = document.getElementById("urlInput") as HTMLInputElement;
+                  if (!input.value.trim()) return;
+                  const imgs = (editing.image || "").split(",").filter(Boolean);
+                  imgs.push(input.value.trim());
+                  setEditing({...editing, image: imgs.join(",")});
+                  input.value = "";
+                }} className="bg-gray-100 px-3 py-2 rounded-md text-sm hover:bg-gray-200">إضافة</button>
+              </div>
+            </div>
           </div>
           <label className="flex items-center gap-2 mt-2">
             <input type="checkbox" checked={editing.active ?? true} onChange={e => setEditing({...editing, active: e.target.checked})} />

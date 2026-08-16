@@ -9,8 +9,8 @@ export type Wilaya = {
 
 export const PRODUCT = {
   name: {
-    ar: "طقم روزالي الناعم",
-    fr: "Ensemble Rosalie",
+    ar: "Ensemble",
+    fr: "Ensemble",
   },
   subtitle: {
     ar: "أناقة هادئة لكل يوم",
@@ -21,17 +21,12 @@ export const PRODUCT = {
   delivery: 600,
   currency: "دج",
   colors: [
-    { ar: "وردي بودري", fr: "Rose poudré", value: "#d99aa6" },
-    { ar: "أخضر مريمي", fr: "Vert sauge", value: "#aabda7" },
-    { ar: "عاجي", fr: "Ivoire", value: "#eee6d7" },
+    { ar: "وردي بودري", fr: "Rose poudré", value: "#d99aa6", image: "/rose.jpg" },
+    { ar: "أخضر مريمي", fr: "Vert sauge", value: "#aabda7", image: "/vert.jpg" },
+    { ar: "عاجي", fr: "Ivoire", value: "#eee6d7", image: "/beige.jpg" },
   ],
   sizes: ["S", "M", "L", "XL"],
-  images: [
-    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?auto=format&fit=crop&w=1000&q=85",
-    "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1000&q=85",
-    "https://images.unsplash.com/photo-1539008835657-9e8e9680c956?auto=format&fit=crop&w=1000&q=85",
-    "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=1000&q=85",
-  ],
+  images: ["/rose.jpg", "/vert.jpg", "/beige.jpg"],
   description: {
     ar: "طقم روزالي مصنوع من قماش ناعم بانسيابية جميلة، بقصة مريحة ولمسة أنثوية تليق بإطلالتك اليومية. قطعة سهلة التنسيق، خفيفة على الجسم ومختارة بعناية لتمنحك الراحة والأناقة معاً.",
     fr: "L’ensemble Rosalie est confectionné dans une matière douce au tombé fluide. Sa coupe confortable et sa touche féminine accompagnent vos journées avec légèreté, confort et élégance.",

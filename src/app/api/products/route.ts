@@ -33,7 +33,8 @@ export async function POST(request: Request) {
     }).returning();
 
     return Response.json({ product }, { status: 201 });
-  } catch {
+  } catch (e: any) {
+    console.error("Product save error:", e);
     return Response.json({ error: "تعذر حفظ المنتج" }, { status: 500 });
   }
 }

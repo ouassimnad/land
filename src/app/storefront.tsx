@@ -86,7 +86,7 @@ const COPY: Record<Locale, Copy> = {
     language: "اللغة",
     newDrop: "إصدار جديد · ربيع 2026",
     productLabel: "القطعة الأكثر طلباً",
-    delivery: "توصيل سريع إلى جميع الولايات · 600 دج",
+    delivery:"",
     color: "اللون",
     size: "المقاس",
     choose: "اختاري",
@@ -325,10 +325,7 @@ export default function Storefront({ productData = STATIC_PRODUCT }: { productDa
         <section className="hero-section" id="product">
           <div className="hero-grid">
             <div className="hero-copy">
-              <div className="eyebrow">{t.newDrop}</div>
-              <h1 className="hero-title">{locale === "ar" ? <>أناقة <em>تشبهكِ</em></> : <>L&apos;élégance qui <em>vous ressemble</em></>}</h1>
-              <p className="hero-subtitle">{productData.subtitle[locale]}</p>
-              <p className="hero-description">{productData.description[locale]}</p>
+              <h1 className="hero-title">{productData.name[locale]}</h1>
               <div className="price-row">
                 <span className="price-now">{formatPrice(productData.price, locale)}</span>
                 <span className="price-old">{formatPrice(productData.oldPrice, locale)}</span>
@@ -339,7 +336,7 @@ export default function Storefront({ productData = STATIC_PRODUCT }: { productDa
               <div className="option-block">
                 <div className="option-label"><span>{t.color}</span><span>{color[locale]}</span></div>
                 <div className="color-options">
-                  {productData.colors.map((item) => <button aria-label={item[locale]} className={`color-button ${selectedColor === item.value ? "selected" : ""}`} key={item.value} onClick={() => setSelectedColor(item.value)} type="button"><span className="color-dot" style={{ background: item.value }} />{item[locale]}</button>)}
+                  {productData.colors.map((item, index) => <button aria-label={item[locale]} className={`color-button ${selectedColor === item.value ? "selected" : ""}`} key={item.value} onClick={() => { setSelectedColor(item.value); setActiveImage(index); }} type="button"><span className="color-dot" style={{ background: item.value }} />{item[locale]}</button>)}
                 </div>
               </div>
               <div className="option-block">
@@ -354,12 +351,12 @@ export default function Storefront({ productData = STATIC_PRODUCT }: { productDa
             <div className="hero-gallery">
               <div className="gallery-layout">
                 <div className="gallery-main">
-                  <img alt={productData.name[locale]} src={productData.images[activeImage]} />
+                  <img alt={productData.name[locale]} src={color.image ?? productData.images[activeImage]} />
                   <span className="gallery-badge">Clochette / EDITION 01</span>
                   <span className="gallery-count">0{activeImage + 1} / 0{productData.images.length}</span>
                 </div>
                 <div className="thumbs">
-                  {productData.images.map((image, index) => <button aria-label={`${t.productLabel} ${index + 1}`} className={`thumb ${activeImage === index ? "active" : ""}`} key={image} onClick={() => setActiveImage(index)} type="button"><img alt="" src={image} /></button>)}
+                  {productData.colors.map((item, index) => <button aria-label={`${item[locale]}`} className={`thumb ${activeImage === index ? "active" : ""}`} key={item.value} onClick={() => { setActiveImage(index); setSelectedColor(item.value); }} type="button"><img alt="" src={item.image} /></button>)}
                 </div>
               </div>
             </div>
