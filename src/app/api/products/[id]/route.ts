@@ -1,6 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { products } from "@/db/schema";
+import { isDashboardAuthenticated } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
@@ -16,19 +17,25 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 }
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  if (!(await isDashboardAuthenticated())) {
+    return Response.json({ error: "غير مصرح" }, { status: 401 });
+  }
   try {
     const { id } = await params;
     const body = await request.json();
     
     const updateData: Partial<typeof products.$inferInsert> = {};
-    if (body.name !== undefined) updateData.name = String(body.name).trim();
+    if (body.nameFr !== undefined) updateData.nameFr = String(body.nameFr).trim();
+    if (body.nameAr !== undefined) updateData.nameAr = String(body.nameAr).trim();
     if (body.price !== undefined) updateData.price = String(body.price);
-    if (body.oldPrice !== undefined) updateData.oldPrice = body.oldPrice ? String(body.oldPrice) : null;
-    if (body.description !== undefined) updateData.description = String(body.description).trim();
-    if (body.image !== undefined) updateData.image = String(body.image).trim();
+    if (body.deliveryPrice !== undefined) updateData.deliveryPrice = body.deliveryPrice ? String(body.deliveryPrice) : null;
+    if (body.discount !== undefined) updateData.discount = body.discount ? Number(body.discount) : null;
+    if (body.descriptionFr !== undefined) updateData.descriptionFr = String(body.descriptionFr).trim();
+    if (body.descriptionAr !== undefined) updateData.descriptionAr = String(body.descriptionAr).trim();
+    if (body.images !== undefined) updateData.images = Array.isArray(body.images) ? body.images : [];
     if (body.colors !== undefined) updateData.colors = Array.isArray(body.colors) ? body.colors : [];
     if (body.sizes !== undefined) updateData.sizes = Array.isArray(body.sizes) ? body.sizes : [];
-    if (body.active !== undefined) updateData.active = Boolean(body.active);
+    if (body.category !== undefined) updateData.category = body.category && String(body.category).trim() ? String(body.category).trim() : null;
 
     const [updated] = await db
       .update(products)
@@ -44,6 +51,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 }
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  if (!(await isDashboardAuthenticated())) {
+    return Response.json({ error: "غير مصرح" }, { status: 401 });
+  }
   try {
     const { id } = await params;
     const [deleted] = await db.delete(products).where(eq(products.id, Number(id))).returning();

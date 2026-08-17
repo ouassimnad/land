@@ -1,10 +1,14 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { orders } from "@/db/schema";
+import { isDashboardAuthenticated } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  if (!(await isDashboardAuthenticated())) {
+    return Response.json({ error: "غير مصرح" }, { status: 401 });
+  }
   try {
     const { id } = await params;
     const result = await db.select().from(orders).where(eq(orders.id, Number(id))).limit(1);
@@ -16,6 +20,9 @@ export async function GET(request: Request, { params }: { params: Promise<{ id: 
 }
 
 export async function PATCH(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  if (!(await isDashboardAuthenticated())) {
+    return Response.json({ error: "غير مصرح" }, { status: 401 });
+  }
   try {
     const { id } = await params;
     const body = await request.json();
@@ -43,6 +50,9 @@ export async function PATCH(request: Request, { params }: { params: Promise<{ id
 }
 
 export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  if (!(await isDashboardAuthenticated())) {
+    return Response.json({ error: "غير مصرح" }, { status: 401 });
+  }
   try {
     const { id } = await params;
     const [deleted] = await db.delete(orders).where(eq(orders.id, Number(id))).returning();

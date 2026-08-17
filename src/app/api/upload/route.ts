@@ -1,9 +1,13 @@
 import { writeFile, mkdir } from "fs/promises";
 import { join } from "path";
+import { isDashboardAuthenticated } from "@/lib/auth";
 
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request) {
+  if (!(await isDashboardAuthenticated())) {
+    return Response.json({ error: "غير مصرح" }, { status: 401 });
+  }
   try {
     const formData = await request.formData();
     const file = formData.get("file") as File | null;
