@@ -91,7 +91,7 @@ export default function OrderDetailClient({ id }: { id: string }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#fffaf8] text-[#2a2522]" dir="rtl">
+    <div className="min-h-screen bg-[#faf6ef] text-[#2a2522]" dir="rtl">
       <header className="sticky top-0 z-30 border-b border-[#e8e2dc]" style={{ backgroundColor: "#E7D0D0" }}>
         <div className="mx-auto flex max-w-4xl items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <a href="/dashboard">

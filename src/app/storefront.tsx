@@ -225,7 +225,7 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
   ] as const;
 
   return (
-    <div className="page-noise min-h-screen bg-[#fffaf8]" dir={isRtl ? "rtl" : "ltr"}>
+    <div className="page-noise min-h-screen bg-[#faf6ef]" dir={isRtl ? "rtl" : "ltr"}>
       <AnnouncementBar items={t.announcement} dir={isRtl ? "rtl" : "ltr"} />
 
       <header className="sticky top-0 z-40 border-b border-[#e8e2dc] backdrop-blur-md" style={{ backgroundColor: "#E7D0D0" }}>

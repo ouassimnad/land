@@ -81,7 +81,7 @@ const COPY = {
     exchangePolicy: "الدفع عند الاستلام بعد تفقد الطلبية",
     deliveryAll: "توصيل متوفر لـ 58 ولاية",
     trust: "شكراً لثقتكن بنا",
-    elegantDesc: "نحن علامة مكرّسة لخياطة قفطانات الهوت كوتور، مصمّمة بمواد أصلية واهتمام دقيق بالتفاصيل. وتُرافق عالمنا تشكيلة ملابس جاهزة تجمع بين الأناقة والعصرية.",
+    elegantDesc: "Nous sommes une marque dédiée à la création de robes haute couture, conçues avec des matières authentiques et un souci du détail exceptionnel. Notre univers est complété par une collection de prêt-à-porter alliant élégance et modernité.",
     trustPayment: "الدفع عند الاستلام",
     trustQuality: "مواد عالية الجودة",
     trustCommunity: "مجتمع ووفاء",
@@ -116,7 +116,7 @@ const COPY = {
     exchangePolicy: "Paiement à la livraison après vérification",
     deliveryAll: "Livraison disponible sur 58 wilayas",
     trust: "Merci pour votre confiance",
-    elegantDesc: "Nous sommes une marque dédiée à la confection de caftans de haute couture, conçus avec des matériaux originaux et un sens aigu du détail. Une sélection de vêtements prêts-à-porter accompagne notre univers, entre élégance et modernité.",
+    elegantDesc: "Nous sommes une marque dédiée à la création de robes haute couture, conçues avec des matières authentiques et un souci du détail exceptionnel. Notre univers est complété par une collection de prêt-à-porter alliant élégance et modernité.",
     trustPayment: "Paiement à la livraison",
     trustQuality: "Matériaux de haute qualité",
     trustCommunity: "Communauté et fidélité",
@@ -128,9 +128,18 @@ function SectionTitle({ children }: { children: ReactNode }) {
   return (
     <div className="w-full overflow-hidden">
       <div className="flex flex-col items-center will-change-transform animate-[sweep-in-out_3.5s_ease-in-out_infinite]">
-        <h2 className="text-center text-3xl md:text-4xl font-bold text-[#617549]">{children}</h2>
-        <span className="block h-[3px] w-28 rounded-full bg-[#617549] mt-4" />
+        <h2 className="text-center text-3xl md:text-4xl font-bold text-[#2a2522]">{children}</h2>
+        <span className="block h-[3px] w-28 rounded-full bg-[#2a2522] mt-4" />
       </div>
+    </div>
+  );
+}
+
+// خط فاصل في المنتصف بين الأقسام
+function SectionDivider() {
+  return (
+    <div aria-hidden="true" className="relative z-10 mx-auto my-14 h-px w-full max-w-6xl bg-[#d8cfc6]">
+      <span className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-[#617549]" />
     </div>
   );
 }
@@ -141,7 +150,7 @@ function ProductCard({ product, locale, viewLabel }: { product: Product; locale:
   const firstImage = product.images && product.images.length > 0 ? product.images[0] : "/placeholder.jpg";
   const oldPrice = discount > 0 ? Math.round(Number(product.price) / (1 - discount / 100)) : null;
   return (
-    <div className="overflow-hidden rounded-2xl border border-[#e8e2dc] bg-white shadow-sm">
+    <div className="overflow-hidden border border-[#e8e2dc] bg-white shadow-sm">
       <Link href={`/product/${product.id}`} className="relative block aspect-[3/4] overflow-hidden bg-[#e3dedc]">
         <img
           src={firstImage}
@@ -174,7 +183,7 @@ function DiscountCard({ product, locale, viewLabel }: { product: Product; locale
   const discount = product.discount ?? 0;
   const firstImage = product.images && product.images.length > 0 ? product.images[0] : "/placeholder.jpg";
   return (
-    <div className="w-64 md:w-72 shrink-0 snap-start overflow-hidden rounded-2xl border border-[#e8e2dc] bg-white shadow-sm">
+    <div className="w-64 md:w-72 shrink-0 snap-start overflow-hidden border border-[#e8e2dc] bg-white shadow-sm">
       <Link href={`/product/${product.id}`} className="relative block aspect-[3/4] overflow-hidden bg-[#e3dedc]">
         <img
           src={firstImage}
@@ -431,8 +440,14 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
 
       {(uncategorizedProducts.length > 0 || visibleProducts.length === 0) && (
         <>
-          <div className="relative z-10 py-10" style={{ backgroundColor: "#D5A7AB" }}>
-            <SectionTitle>{t.bestSellers}</SectionTitle>
+          <div
+            className="relative z-10 overflow-hidden py-10"
+            style={{ backgroundImage: "url('/most-shoping.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
+          >
+            <div aria-hidden="true" className="absolute inset-0 bg-[#faf6ef]/70" />
+            <div className="relative">
+              <SectionTitle>{t.bestSellers}</SectionTitle>
+            </div>
           </div>
           <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 relative z-10">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10 md:gap-x-8 md:gap-y-12">
@@ -447,19 +462,32 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
         </>
       )}
 
+      {uncategorizedProducts.length > 0 && categorySections.length > 0 && !normalizedQuery && <SectionDivider />}
+
       {categorySections.map((section, index) => (
-        <section key={section.name} className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 relative z-10 ${uncategorizedProducts.length === 0 && index === 0 ? "pt-16" : ""}`}>
-          <SectionTitle>{section.name}</SectionTitle>
-          <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:gap-x-8 md:gap-y-12 mt-12">
-            {section.items.map((product) => <ProductCard key={product.id} product={product} locale={locale} viewLabel={t.viewProduct} />)}
-          </div>
-        </section>
+        <div key={section.name}>
+          {index > 0 && !normalizedQuery && <SectionDivider />}
+          <section className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 relative z-10 ${uncategorizedProducts.length === 0 && index === 0 ? "pt-16" : ""}`}>
+            <SectionTitle>{section.name}</SectionTitle>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-10 md:gap-x-8 md:gap-y-12 mt-12">
+              {section.items.map((product) => <ProductCard key={product.id} product={product} locale={locale} viewLabel={t.viewProduct} />)}
+            </div>
+          </section>
+        </div>
       ))}
+
+      {discountedProducts.length > 0 && (uncategorizedProducts.length > 0 || categorySections.length > 0) && !normalizedQuery && <SectionDivider />}
 
       {discountedProducts.length > 0 && (
         <>
-          <div className="relative z-10 py-10" style={{ backgroundColor: "#D5A7AB" }}>
-            <SectionTitle>{t.discounts}</SectionTitle>
+          <div
+            className="relative z-10 overflow-hidden py-1"
+            style={{ backgroundImage: "url('/discount.png')", backgroundSize: "cover", backgroundPosition: "center" }}
+          >
+            <div aria-hidden="true" className="absolute inset-0 bg-[#faf6ef]/70" />
+            <div className="relative">
+              <SectionTitle>{t.discounts}</SectionTitle>
+            </div>
           </div>
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-20 relative z-10">
             <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory">
@@ -469,19 +497,27 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
         </>
       )}
 
+      {!normalizedQuery && <SectionDivider />}
+
       {!normalizedQuery && (
-        <section className="relative z-10 mb-20" style={{ backgroundColor: "#D5A7AB" }}>
-          <div className="max-w-7xl mx-auto px-6 py-14 md:py-20 text-center">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-white">Elegant Design</h2>
+        <section
+          className="relative z-10 mb-20 overflow-hidden"
+          style={{ backgroundImage: "url('/background-2.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
+        >
+          <div aria-hidden="true" className="absolute inset-0 bg-black/40" />
+          <div className="relative max-w-7xl mx-auto px-6 py-32 md:py-48 text-center">
+            <h2 className="text-4xl md:text-6xl font-serif font-bold text-white">Elegant Design</h2>
             <span className="block h-[3px] w-16 rounded-full bg-white/80 mx-auto mt-4" />
-            <p className="mt-6 max-w-2xl mx-auto text-sm md:text-base leading-8 text-white">{t.elegantDesc}</p>
+            <p className="mt-6 max-w-3xl mx-auto text-lg md:text-2xl leading-9 md:leading-10 text-white">{t.elegantDesc}</p>
           </div>
         </section>
       )}
 
+      {!normalizedQuery && visibleReviews.length > 0 && <SectionDivider />}
+
       {!normalizedQuery && visibleReviews.length > 0 && (
         <>
-          <div className="relative z-10 py-10" style={{ backgroundColor: "#D5A7AB" }}>
+          <div className="relative z-10 py-10 bg-[#D5A7AB]/25">
             <SectionTitle>{t.reviewsTitle}</SectionTitle>
           </div>
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pb-20 relative z-10">
@@ -500,24 +536,34 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
         </>
       )}
 
+      {!normalizedQuery && <SectionDivider />}
+
       {!normalizedQuery && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 relative z-10">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {([
-              { icon: "cash", text: t.trustPayment },
-              { icon: "medal", text: t.trustQuality },
-              { icon: "heart", text: t.trustCommunity },
-            ] as const).map((item) => (
-              <div key={item.text} className="bg-[#617549] text-[#fffaf8] px-6 py-10 text-center shadow-sm flex flex-col items-center gap-4">
-                <Icon name={item.icon} size={30} />
-                <span className="text-base font-medium">{item.text}</span>
-              </div>
-            ))}
+        <section
+          className="relative z-10 overflow-hidden pb-28 md:pb-36"
+          style={{ backgroundImage: "url('/background.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
+        >
+          <div aria-hidden="true" className="absolute inset-0 bg-black/40" />
+          <div className="relative max-w-7xl mx-auto px-4 pt-24 md:pt-32 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {([
+                { icon: "cash", text: t.trustPayment },
+                { icon: "medal", text: t.trustQuality },
+                { icon: "heart", text: t.trustCommunity },
+              ] as const).map((item) => (
+                <div key={item.text} className="bg-white/10 backdrop-blur-sm border border-white/25 text-[#fffaf8] px-6 py-10 text-center shadow-sm flex flex-col items-center gap-4">
+                  <Icon name={item.icon} size={30} />
+                  <span className="text-base font-medium">{item.text}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}
 
-      <footer className="footer mt-24 relative z-10 border-t border-[#e8e2dc]" style={{ backgroundColor: "#E7D0D0" }}>
+      {!normalizedQuery && <SectionDivider />}
+
+      <footer className="footer mt-4 relative z-10 border-t border-[#e8e2dc]" style={{ backgroundColor: "#E7D0D0" }}>
         <div className="footer-top max-w-7xl mx-auto px-4 pt-14 pb-10 flex flex-col items-center text-center">
           <img alt="Clochette logo" src="/logo.png" className="h-14 w-auto" />
           <p className="footer-copy mt-5 max-w-md text-[#2a2522] leading-relaxed">{t.footerText}</p>

@@ -211,7 +211,7 @@ export default function DashboardClient() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fffaf8] text-[#2a2522]" dir="rtl">
+    <div className="min-h-screen bg-[#faf6ef] text-[#2a2522]" dir="rtl">
       <div className="lg:flex">
         {/* Sidebar — desktop only */}
         <aside className="hidden lg:flex sticky top-0 h-screen w-64 shrink-0 flex-col border-l border-[#e8e2dc] bg-white px-4 py-7">

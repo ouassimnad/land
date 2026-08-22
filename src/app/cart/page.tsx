@@ -93,7 +93,7 @@ export default function CartPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#fffaf8]" dir="rtl">
+    <div className="min-h-screen bg-[#faf6ef]" dir="rtl">
       <header className="sticky top-0 z-40 border-b border-[#e8e2dc] backdrop-blur-md" style={{ backgroundColor: "#E7D0D0" }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
           <Link href="/" className="text-sm font-medium text-[#2a2522] hover:text-[#617549] transition-colors">العودة للمتجر</Link>

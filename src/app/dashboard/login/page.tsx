@@ -31,7 +31,7 @@ export default function DashboardLoginPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#fffaf8] px-4" dir="rtl">
+    <div className="flex min-h-screen items-center justify-center bg-[#faf6ef] px-4" dir="rtl">
       <div className="w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center text-center">
           <img alt="Clochette logo" src="/logo.png" className="h-16 w-16 rounded-full object-cover" />
