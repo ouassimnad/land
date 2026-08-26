@@ -310,11 +310,14 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
       </aside>
 
       <main className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 md:py-16">
+        <Link href="/" className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#d8cfc6] bg-white px-5 py-2 text-sm font-bold text-[#2a2522] transition-colors hover:border-[#a1688a] hover:text-[#a1688a]">
+          ← {t.backToStore}
+        </Link>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
           {/* Gallery */}
-          <div>
-            <div className="relative aspect-[3/4] overflow-hidden rounded-3xl border border-[#e8e2dc] bg-[#e3dedc]">
-              <img src={mainImage} alt={productData.name[locale]} className="object-cover w-full h-full" />
+          <div className="mx-auto w-full max-w-[460px]">
+            <div className="relative overflow-hidden rounded-3xl border border-[#e8e2dc] bg-[#e3dedc]">
+              <img src={mainImage} alt={productData.name[locale]} className="block w-full h-auto" />
               {discount > 0 && (
                 <span className="absolute top-4 right-4 bg-[#a1688a] text-[#fffaf8] px-4 py-1.5 text-sm font-bold rounded-full shadow-sm">
                   -{discount}%
