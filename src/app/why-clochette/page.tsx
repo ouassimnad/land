@@ -20,20 +20,20 @@ export default function WhyClochettePage() {
           <Link href="/" aria-label="Clochette">
             <img alt="Clochette logo" src="/logo.png" className="h-8 w-auto" />
           </Link>
-          <Link href="/" className="text-sm font-bold text-[#617549] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-sm font-bold text-[#a1688a] transition-opacity hover:opacity-80">
             العودة للمتجر
           </Link>
         </div>
       </header>
       <main className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="mb-8 text-3xl font-bold text-[#617549] md:text-4xl">لماذا Clochette</h1>
+        <h1 className="mb-8 text-3xl font-bold text-[#a1688a] md:text-4xl">لماذا Clochette</h1>
         <p className="mb-10 text-lg leading-loose">
           لأن التفاصيل تصنع الفرق، حرصنا أن تكون تجربتكِ معنا مختلفة من البداية إلى النهاية:
         </p>
         <ul className="space-y-5 text-lg leading-relaxed">
           {REASONS.map((reason) => (
             <li key={reason} className="flex gap-3">
-              <span className="text-[#617549]" aria-hidden="true">✦</span>
+              <span className="text-[#a1688a]" aria-hidden="true">✦</span>
               <span>{reason}</span>
             </li>
           ))}

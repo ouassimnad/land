@@ -12,13 +12,13 @@ export default function AboutPage() {
           <Link href="/" aria-label="Clochette">
             <img alt="Clochette logo" src="/logo.png" className="h-8 w-auto" />
           </Link>
-          <Link href="/" className="text-sm font-bold text-[#617549] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-sm font-bold text-[#a1688a] transition-opacity hover:opacity-80">
             العودة للمتجر
           </Link>
         </div>
       </header>
       <main className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="mb-8 text-3xl font-bold text-[#617549] md:text-4xl">من نحن</h1>
+        <h1 className="mb-8 text-3xl font-bold text-[#a1688a] md:text-4xl">من نحن</h1>
         <div className="space-y-6 text-lg leading-loose">
           <p>
             وُلدت Clochette من حب التفاصيل والأناقة الهادئة. نحن متجر جزائري نسائي نختار لكِ قطعاً تجمع بين الراحة والجمال، بخامات ناعمة وقصّات مدروسة ترافق يومكِ ومناسباتكِ.

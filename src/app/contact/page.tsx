@@ -18,13 +18,13 @@ export default function ContactPage() {
           <Link href="/" aria-label="Clochette">
             <img alt="Clochette logo" src="/logo.png" className="h-8 w-auto" />
           </Link>
-          <Link href="/" className="text-sm font-bold text-[#617549] transition-opacity hover:opacity-80">
+          <Link href="/" className="text-sm font-bold text-[#a1688a] transition-opacity hover:opacity-80">
             العودة للمتجر
           </Link>
         </div>
       </header>
       <main className="mx-auto max-w-3xl px-4 py-16">
-        <h1 className="mb-8 text-3xl font-bold text-[#617549] md:text-4xl">اتصل بنا</h1>
+        <h1 className="mb-8 text-3xl font-bold text-[#a1688a] md:text-4xl">اتصل بنا</h1>
         <div className="space-y-6 text-lg leading-loose">
           <p>
             يسعدنا تواصلكِ معنا في أي وقت. فريق Clochette جاهز للإجابة عن استفساراتكِ حول المنتجات، الطلبات، أو التوصيل.
@@ -38,7 +38,7 @@ export default function ContactPage() {
               href={social.href}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-[#e8e2dc] px-6 py-3 font-bold text-[#617549] transition-colors hover:bg-[#E7D0D0]"
+              className="rounded-full border border-[#e8e2dc] px-6 py-3 font-bold text-[#a1688a] transition-colors hover:bg-[#E7D0D0]"
             >
               {social.label}
             </a>

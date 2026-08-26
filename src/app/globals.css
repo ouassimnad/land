@@ -6,7 +6,7 @@
   --rose-deep: #67391c;
   --rose-soft: #fbebe0;
   --sage: #ffffff;
-  --sage-deep: #686c43;
+  --sage-deep: #a1688a;
   --cream: #fcfaf7;
   --ink: #2a2522;
   --muted: #857d76;
@@ -141,7 +141,7 @@ button {
   z-index: 10;
   display: grid;
   grid-template-rows: 0fr;
-  background: #617549;
+  background: #a1688a;
   transition: grid-template-rows .35s ease;
 }
 
@@ -210,7 +210,7 @@ button {
   flex-shrink: 0;
   border: 0;
   border-radius: 999px;
-  background: #617549;
+  background: #a1688a;
   color: #fffaf8;
   padding: 8px 20px;
   font-size: 14px;
@@ -757,7 +757,7 @@ button {
 
 .order-section {
   padding: 105px clamp(20px, 5vw, 80px);
-  background: #59804f;
+  background: #a1688a;
 }
 
 .order-shell {

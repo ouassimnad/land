@@ -35,7 +35,7 @@ export default function DashboardLoginPage() {
       <div className="w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center text-center">
           <img alt="Clochette logo" src="/logo.png" className="h-16 w-16 rounded-full object-cover" />
-          <h1 className="mt-4 text-2xl font-bold text-[#617549]">لوحة تحكم Clochette</h1>
+          <h1 className="mt-4 text-2xl font-bold text-[#a1688a]">لوحة تحكم Clochette</h1>
           <p className="mt-2 text-sm text-[#857d76]">سجلي الدخول ببيانات حسابك للوصول إلى إدارة المتجر</p>
         </div>
 
@@ -49,7 +49,7 @@ export default function DashboardLoginPage() {
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             placeholder="admin@example.com"
-            className="w-full rounded-lg border border-[#d8cfc6] bg-white px-4 py-3 text-sm text-[#2a2522] outline-none transition-colors focus:border-[#617549]"
+            className="w-full rounded-lg border border-[#d8cfc6] bg-white px-4 py-3 text-sm text-[#2a2522] outline-none transition-colors focus:border-[#a1688a]"
           />
           <label className="mt-4 mb-1 block text-sm font-medium text-[#2a2522]" htmlFor="admin-password">كلمة المرور</label>
           <input
@@ -59,13 +59,13 @@ export default function DashboardLoginPage() {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
             placeholder="••••••••"
-            className="w-full rounded-lg border border-[#d8cfc6] bg-white px-4 py-3 text-sm text-[#2a2522] outline-none transition-colors focus:border-[#617549]"
+            className="w-full rounded-lg border border-[#d8cfc6] bg-white px-4 py-3 text-sm text-[#2a2522] outline-none transition-colors focus:border-[#a1688a]"
           />
           {error && <p className="mt-3 text-center text-xs font-medium text-red-600">{error}</p>}
           <button
             type="submit"
             disabled={isLoading}
-            className="mt-5 w-full rounded-full bg-[#617549] px-5 py-3 text-sm font-bold text-[#fffaf8] transition-opacity hover:opacity-90 disabled:opacity-60"
+            className="mt-5 w-full rounded-full bg-[#a1688a] px-5 py-3 text-sm font-bold text-[#fffaf8] transition-opacity hover:opacity-90 disabled:opacity-60"
           >
             {isLoading ? "جارٍ الدخول..." : "تسجيل الدخول"}
           </button>
@@ -73,7 +73,7 @@ export default function DashboardLoginPage() {
         </form>
 
         <div className="mt-6 text-center">
-          <a href="/" className="text-xs font-medium text-[#617549] hover:underline">← العودة إلى المتجر</a>
+          <a href="/" className="text-xs font-medium text-[#a1688a] hover:underline">← العودة إلى المتجر</a>
         </div>
       </div>
     </div>

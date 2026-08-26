@@ -115,7 +115,7 @@ function statusLabel(status: string) {
 }
 
 function statusStyle(status: string) {
-  if (status === "processing") return "bg-[#eef1e8] text-[#617549]";
+  if (status === "processing") return "bg-[#f7ecf2] text-[#a1688a]";
   if (status === "delivered") return "bg-[#f1eeec] text-[#857d76]";
   return "bg-[#fdf2dd] text-[#bb8b3e]";
 }
@@ -132,10 +132,10 @@ function initials(name: string) {
   return name.trim().split(" ").slice(0, 2).map((item) => item[0]).join("");
 }
 
-const inputClass = "w-full rounded-lg border border-[#d8cfc6] bg-white px-3 py-2 text-sm text-[#2a2522] outline-none transition-colors focus:border-[#617549]";
+const inputClass = "w-full rounded-lg border border-[#d8cfc6] bg-white px-3 py-2 text-sm text-[#2a2522] outline-none transition-colors focus:border-[#a1688a]";
 const labelClass = "mb-1 block text-sm font-medium text-[#2a2522]";
 const cardClass = "rounded-xl border border-[#e8e2dc] bg-white shadow-sm";
-const primaryButtonClass = "rounded-full bg-[#617549] px-5 py-2.5 text-sm font-bold text-[#fffaf8] transition-opacity hover:opacity-90 disabled:opacity-60";
+const primaryButtonClass = "rounded-full bg-[#a1688a] px-5 py-2.5 text-sm font-bold text-[#fffaf8] transition-opacity hover:opacity-90 disabled:opacity-60";
 
 export default function DashboardClient() {
   const router = useRouter();
@@ -225,7 +225,7 @@ export default function DashboardClient() {
                 key={item.key}
                 onClick={() => setTab(item.key)}
                 type="button"
-                className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium transition-colors ${tab === item.key ? "bg-[#617549] text-[#fffaf8]" : "text-[#857d76] hover:bg-[#E7D0D0]/60 hover:text-[#2a2522]"}`}
+                className={`flex items-center gap-3 rounded-lg px-3 py-2.5 text-[13px] font-medium transition-colors ${tab === item.key ? "bg-[#a1688a] text-[#fffaf8]" : "text-[#857d76] hover:bg-[#E7D0D0]/60 hover:text-[#2a2522]"}`}
               >
                 <Icon name={item.icon} size={17} />
                 <span>{item.label}</span>
@@ -234,7 +234,7 @@ export default function DashboardClient() {
           </nav>
           <div className="mt-auto border-t border-[#e8e2dc] pt-5 text-[11px] leading-6 text-[#857d76] px-2">
             Clochette Admin<br />إدارة متجركِ بكل بساطة
-            <a href="/" className="mt-3 flex items-center gap-2 text-[12px] font-medium text-[#617549] hover:underline">
+            <a href="/" className="mt-3 flex items-center gap-2 text-[12px] font-medium text-[#a1688a] hover:underline">
               <Icon name="store" size={15} /> عرض المتجر
             </a>
             <button onClick={logout} type="button" className="mt-2 flex items-center gap-2 text-[12px] font-medium text-red-500 hover:underline">
@@ -256,7 +256,7 @@ export default function DashboardClient() {
               </div>
               <div className="flex items-center gap-2.5 text-xs text-[#2a2522]">
                 <span className="hidden sm:inline">مديرة المتجر</span>
-                <div className="grid h-9 w-9 place-items-center rounded-full bg-white/70 font-bold text-[#617549]">ن</div>
+                <div className="grid h-9 w-9 place-items-center rounded-full bg-white/70 font-bold text-[#a1688a]">ن</div>
                 <button onClick={logout} type="button" className="rounded-full bg-white/60 px-3 py-1.5 text-[11px] font-medium text-red-600 lg:hidden">خروج</button>
               </div>
             </div>
@@ -267,7 +267,7 @@ export default function DashboardClient() {
                   key={item.key}
                   onClick={() => setTab(item.key)}
                   type="button"
-                  className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-[12px] font-medium transition-colors ${tab === item.key ? "bg-[#617549] text-[#fffaf8]" : "bg-white/60 text-[#2a2522]"}`}
+                  className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-[12px] font-medium transition-colors ${tab === item.key ? "bg-[#a1688a] text-[#fffaf8]" : "bg-white/60 text-[#2a2522]"}`}
                 >
                   <Icon name={item.icon} size={14} />
                   {item.label}
@@ -293,10 +293,10 @@ export default function DashboardClient() {
                   <article key={stat.label} className={`${cardClass} p-5`}>
                     <div className="flex items-center justify-between text-xs text-[#857d76]">
                       <span>{stat.label}</span>
-                      <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#E7D0D0] text-[#617549]"><Icon name={stat.icon} size={16} /></span>
+                      <span className="grid h-8 w-8 place-items-center rounded-lg bg-[#E7D0D0] text-[#a1688a]"><Icon name={stat.icon} size={16} /></span>
                     </div>
                     <div className="mt-4 text-2xl font-bold text-[#2a2522]">{stat.value}</div>
-                    <div className="mt-1.5 text-[11px] text-[#617549]">{stat.trend}</div>
+                    <div className="mt-1.5 text-[11px] text-[#a1688a]">{stat.trend}</div>
                   </article>
                 ))}
               </section>
@@ -304,13 +304,13 @@ export default function DashboardClient() {
               <section className="mt-5 grid grid-cols-1 gap-5 xl:grid-cols-[1.4fr_1fr]">
                 <div className={`${cardClass} p-6`}>
                   <div className="mb-6 flex items-center justify-between">
-                    <h2 className="text-base font-bold text-[#617549]">نظرة على المبيعات</h2>
+                    <h2 className="text-base font-bold text-[#a1688a]">نظرة على المبيعات</h2>
                     <span className="text-[11px] text-[#857d76]">آخر 7 أيام ⌄</span>
                   </div>
                   <div className="flex h-52 items-end justify-around gap-2 border-b border-[#e8e2dc] px-1 sm:gap-3">
                     {[42, 66, 52, 78, 61, 91, 73].map((height, index) => (
                       <div key={index} className="flex h-full flex-1 flex-col items-center justify-end gap-2">
-                        <div className="w-full max-w-[34px] rounded-t-md bg-[#617549]" style={{ height: `${height}%`, opacity: index === 5 ? 1 : 0.55 }} />
+                        <div className="w-full max-w-[34px] rounded-t-md bg-[#a1688a]" style={{ height: `${height}%`, opacity: index === 5 ? 1 : 0.55 }} />
                         <span className="text-[10px] text-[#857d76]">{["سبت", "أحد", "اثن", "ثلا", "أرب", "خمي", "جمع"][index]}</span>
                       </div>
                     ))}
@@ -318,8 +318,8 @@ export default function DashboardClient() {
                 </div>
                 <div className={`${cardClass} p-6`}>
                   <div className="mb-4 flex items-center justify-between">
-                    <h2 className="text-base font-bold text-[#617549]">آخر الطلبات</h2>
-                    <button className="text-[11px] font-medium text-[#617549] hover:underline" onClick={() => setTab("orders")} type="button">عرض الكل ←</button>
+                    <h2 className="text-base font-bold text-[#a1688a]">آخر الطلبات</h2>
+                    <button className="text-[11px] font-medium text-[#a1688a] hover:underline" onClick={() => setTab("orders")} type="button">عرض الكل ←</button>
                   </div>
                   <div className="flex flex-col">
                     {orders.length === 0 ? (
@@ -345,7 +345,7 @@ export default function DashboardClient() {
             {tab === "orders" && (
               <section>
                 <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
-                  <h2 className="text-lg font-bold text-[#617549]">قائمة الطلبيات</h2>
+                  <h2 className="text-lg font-bold text-[#a1688a]">قائمة الطلبيات</h2>
                   <span className="text-xs text-[#857d76]">{loading ? "جارٍ التحديث..." : `${orders.length} طلبات معروضة`}</span>
                 </div>
                 <div className={`${cardClass} overflow-hidden`}>
@@ -356,7 +356,7 @@ export default function DashboardClient() {
                       <a href={`/dashboard/orders/${order.id}`} className="flex min-w-0 flex-1 items-center gap-4">
                         <span className="w-16 shrink-0 text-sm font-bold text-[#2a2522]">#{order.id}</span>
                         <span className="flex-1 truncate text-sm text-[#2a2522]">{order.customerName}</span>
-                        <span className="shrink-0 text-[11px] font-medium text-[#617549]">التفاصيل ←</span>
+                        <span className="shrink-0 text-[11px] font-medium text-[#a1688a]">التفاصيل ←</span>
                       </a>
                       <button onClick={() => deleteOrder(order.id)} type="button" className="shrink-0 rounded-full bg-red-50 px-3 py-1.5 text-[11px] font-medium text-red-600 transition-colors hover:bg-red-100">حذف</button>
                     </div>
@@ -369,7 +369,7 @@ export default function DashboardClient() {
 
             {tab === "settings" && (
               <section>
-                <h2 className="mb-5 text-lg font-bold text-[#617549]">الإعدادات</h2>
+                <h2 className="mb-5 text-lg font-bold text-[#a1688a]">الإعدادات</h2>
                 <div className={`${cardClass} max-w-xl p-6`}>
                   <h3 className="text-base font-bold text-[#2a2522]">تغيير كلمة المرور</h3>
                   <p className="mt-1.5 text-xs text-[#857d76]">حدّثي كلمة مرور لوحة التحكم بشكل دوري للحفاظ على أمان حسابك.</p>
@@ -384,7 +384,7 @@ export default function DashboardClient() {
                     </div>
                     <div className="flex items-center gap-3">
                       <button className={primaryButtonClass} type="submit">حفظ التغييرات</button>
-                      {settingsMessage && <span className="text-xs font-medium text-[#617549]">{settingsMessage}</span>}
+                      {settingsMessage && <span className="text-xs font-medium text-[#a1688a]">{settingsMessage}</span>}
                     </div>
                   </form>
                 </div>
@@ -451,7 +451,7 @@ function SocialSettingsCard() {
         </div>
         <div className="flex items-center gap-3">
           <button className={primaryButtonClass} disabled={saving} type="submit">{saving ? "جارٍ الحفظ..." : "حفظ الروابط"}</button>
-          {message && <span className="text-xs font-medium text-[#617549]">{message}</span>}
+          {message && <span className="text-xs font-medium text-[#a1688a]">{message}</span>}
         </div>
       </form>
     </div>
@@ -520,11 +520,11 @@ function DeliveryTab() {
     <section>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-bold text-[#617549]">أسعار التوصيل حسب الولاية</h2>
+          <h2 className="text-lg font-bold text-[#a1688a]">أسعار التوصيل حسب الولاية</h2>
           <p className="mt-1 text-xs text-[#857d76]">حددي سعري التوصيل إلى المنزل وإلى المكتب لكل ولاية من الولايات الـ58 ({filledCount}/58 ولاية محددة)</p>
         </div>
         <div className="flex items-center gap-3">
-          {message && <span className="text-xs font-medium text-[#617549]">{message}</span>}
+          {message && <span className="text-xs font-medium text-[#a1688a]">{message}</span>}
           <button onClick={savePrices} disabled={saving || loadingPrices} className={primaryButtonClass}>{saving ? "جارٍ الحفظ..." : "حفظ الأسعار"}</button>
         </div>
       </div>
@@ -550,7 +550,7 @@ function DeliveryTab() {
                   onChange={(event) => updatePrice(wilaya.code, "home", event.target.value)}
                   placeholder="منزل"
                   aria-label={`سعر التوصيل إلى المنزل — ${wilaya.ar}`}
-                  className="w-full min-w-0 rounded-lg border border-[#d8cfc6] bg-white px-2.5 py-1.5 text-sm text-[#2a2522] outline-none transition-colors focus:border-[#617549]"
+                  className="w-full min-w-0 rounded-lg border border-[#d8cfc6] bg-white px-2.5 py-1.5 text-sm text-[#2a2522] outline-none transition-colors focus:border-[#a1688a]"
                 />
                 <input
                   type="number"
@@ -559,7 +559,7 @@ function DeliveryTab() {
                   onChange={(event) => updatePrice(wilaya.code, "office", event.target.value)}
                   placeholder="مكتب"
                   aria-label={`سعر التوصيل إلى المكتب — ${wilaya.ar}`}
-                  className="w-full min-w-0 rounded-lg border border-[#d8cfc6] bg-white px-2.5 py-1.5 text-sm text-[#2a2522] outline-none transition-colors focus:border-[#617549]"
+                  className="w-full min-w-0 rounded-lg border border-[#d8cfc6] bg-white px-2.5 py-1.5 text-sm text-[#2a2522] outline-none transition-colors focus:border-[#a1688a]"
                 />
               </div>
             ))
@@ -675,7 +675,7 @@ function ProductsTab({ products, onUpdate }: { products: DBProduct[]; onUpdate: 
   if (editing) {
     return (
       <section className={`${cardClass} p-5 sm:p-7`}>
-        <h2 className="mb-6 text-lg font-bold text-[#617549]">{editing.id ? "تعديل المنتج" : "إضافة منتج جديد"}</h2>
+        <h2 className="mb-6 text-lg font-bold text-[#a1688a]">{editing.id ? "تعديل المنتج" : "إضافة منتج جديد"}</h2>
         <form onSubmit={saveProduct} className="flex flex-col gap-4">
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div>
@@ -728,7 +728,7 @@ function ProductsTab({ products, onUpdate }: { products: DBProduct[]; onUpdate: 
               ))}
             </div>
             <div className="flex flex-col gap-2">
-              <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#617549] px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90">
+              <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#a1688a] px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90">
                 <span>📷 رفع صورة من جهازك</span>
                 <input type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={async (e) => {
                   const files = e.target.files;
@@ -772,7 +772,7 @@ function ProductsTab({ products, onUpdate }: { products: DBProduct[]; onUpdate: 
   return (
     <section>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-bold text-[#617549]">كتالوج المنتجات</h2>
+        <h2 className="text-lg font-bold text-[#a1688a]">كتالوج المنتجات</h2>
         <button onClick={() => setEditing(EMPTY_PRODUCT_FORM)} className={primaryButtonClass}>+ إضافة منتج جديد</button>
       </div>
 
@@ -786,8 +786,8 @@ function ProductsTab({ products, onUpdate }: { products: DBProduct[]; onUpdate: 
               <div className="min-w-0 flex-1">
                 <h3 className="truncate text-sm font-bold text-[#2a2522]">{product.nameAr}</h3>
                 <div className="mt-0.5 truncate text-[11px] text-[#857d76]" dir="ltr">{product.nameFr}</div>
-                {product.category ? <div className="mt-1 text-[11px] font-medium text-[#617549]">القسم: {product.category}</div> : null}
-                <div className="mt-1.5 text-sm font-bold text-[#617549]">
+                {product.category ? <div className="mt-1 text-[11px] font-medium text-[#a1688a]">القسم: {product.category}</div> : null}
+                <div className="mt-1.5 text-sm font-bold text-[#a1688a]">
                   {formatPrice(Number(product.price), "ar")}
                   {product.discount ? <span className="mr-2 text-[11px] font-medium text-[#bb8b3e]">-{product.discount}%</span> : null}
                 </div>
@@ -849,8 +849,8 @@ function ReviewsTab({ reviews, onUpdate }: { reviews: DBReview[]; onUpdate: () =
   return (
     <section>
       <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-bold text-[#617549]">صور آراء الزبونات</h2>
-        <label className={`cursor-pointer rounded-full bg-[#617549] px-5 py-2.5 text-sm font-bold text-[#fffaf8] transition-opacity hover:opacity-90 ${isUploading ? "pointer-events-none opacity-60" : ""}`}>
+        <h2 className="text-lg font-bold text-[#a1688a]">صور آراء الزبونات</h2>
+        <label className={`cursor-pointer rounded-full bg-[#a1688a] px-5 py-2.5 text-sm font-bold text-[#fffaf8] transition-opacity hover:opacity-90 ${isUploading ? "pointer-events-none opacity-60" : ""}`}>
           <span>{isUploading ? "جارٍ الرفع..." : "+ رفع صورة رأي"}</span>
           <input
             type="file"

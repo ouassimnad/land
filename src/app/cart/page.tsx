@@ -96,7 +96,7 @@ export default function CartPage() {
     <div className="min-h-screen bg-[#faf6ef]" dir="rtl">
       <header className="sticky top-0 z-40 border-b border-[#e8e2dc] backdrop-blur-md" style={{ backgroundColor: "#E7D0D0" }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
-          <Link href="/" className="text-sm font-medium text-[#2a2522] hover:text-[#617549] transition-colors">العودة للمتجر</Link>
+          <Link href="/" className="text-sm font-medium text-[#2a2522] hover:text-[#a1688a] transition-colors">العودة للمتجر</Link>
           <Link href="/" className="flex justify-center" aria-label="Clochette">
             <img alt="Clochette logo" src="/logo.png" className="h-9 w-auto" />
           </Link>
@@ -106,22 +106,22 @@ export default function CartPage() {
 
       <main className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 md:py-16">
         <div className="text-center">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#617549]">سلة التسوق</h1>
-          <span className="block h-[3px] w-24 rounded-full bg-[#617549] mx-auto mt-4" />
+          <h1 className="text-3xl md:text-4xl font-bold text-[#a1688a]">سلة التسوق</h1>
+          <span className="block h-[3px] w-24 rounded-full bg-[#a1688a] mx-auto mt-4" />
         </div>
 
         {submitState === "success" ? (
           <div className="mt-12 rounded-3xl border border-[#e8e2dc] bg-white p-10 text-center shadow-sm">
             <div className="text-5xl">✓</div>
-            <p className="text-lg font-bold text-[#617549] mt-4">تم استلام طلبكِ! سنتصل بكِ قريباً للتأكيد.</p>
-            <Link href="/" className="inline-block mt-6 rounded-full bg-[#617549] text-[#fffaf8] px-8 py-3 text-sm font-bold transition-opacity hover:opacity-90">
+            <p className="text-lg font-bold text-[#a1688a] mt-4">تم استلام طلبكِ! سنتصل بكِ قريباً للتأكيد.</p>
+            <Link href="/" className="inline-block mt-6 rounded-full bg-[#a1688a] text-[#fffaf8] px-8 py-3 text-sm font-bold transition-opacity hover:opacity-90">
               العودة للمتجر
             </Link>
           </div>
         ) : !ready ? null : lines.length === 0 ? (
           <div className="mt-12 rounded-3xl border border-[#e8e2dc] bg-white p-10 text-center shadow-sm">
             <p className="text-[#857d76]">سلتك فارغة حالياً</p>
-            <Link href="/" className="inline-block mt-6 rounded-full bg-[#617549] text-[#fffaf8] px-8 py-3 text-sm font-bold transition-opacity hover:opacity-90">
+            <Link href="/" className="inline-block mt-6 rounded-full bg-[#a1688a] text-[#fffaf8] px-8 py-3 text-sm font-bold transition-opacity hover:opacity-90">
               تسوّقي الآن
             </Link>
           </div>
@@ -134,7 +134,7 @@ export default function CartPage() {
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-[#2a2522] truncate">{line.nameAr}</div>
                     <div className="text-xs text-[#857d76] mt-0.5">{line.color}{line.size ? ` · ${line.size}` : ""} × {line.quantity}</div>
-                    <div className="text-sm font-bold text-[#617549] mt-1">{formatPrice(line.price * line.quantity, "ar")}</div>
+                    <div className="text-sm font-bold text-[#a1688a] mt-1">{formatPrice(line.price * line.quantity, "ar")}</div>
                   </div>
                   <button type="button" aria-label="حذف" onClick={() => removeLine(line.key)} className="text-red-500 hover:text-red-700 text-sm font-medium">
                     حذف
@@ -152,7 +152,7 @@ export default function CartPage() {
                 <span>التوصيل ({deliveryType === "home" ? "إلى المنزل" : "إلى المكتب"} — {selectedWilaya.ar})</span>
                 <span>{deliveryFee === null ? "—" : formatPrice(deliveryFee, "ar")}</span>
               </div>
-              <div className="flex justify-between text-base font-bold text-[#617549] mt-3 border-t border-[#e8e2dc] pt-3">
+              <div className="flex justify-between text-base font-bold text-[#a1688a] mt-3 border-t border-[#e8e2dc] pt-3">
                 <span>المجموع الكلي</span>
                 <span>{formatPrice(total, "ar")}</span>
               </div>
@@ -161,30 +161,30 @@ export default function CartPage() {
 
             <div className="mt-10 rounded-3xl border border-[#e8e2dc] bg-white p-6 md:p-10 shadow-sm">
               <div className="text-center">
-                <h2 className="text-2xl font-bold text-[#617549]">معلومات التوصيل</h2>
-                <span className="block h-[3px] w-16 rounded-full bg-[#617549] mx-auto mt-3" />
+                <h2 className="text-2xl font-bold text-[#a1688a]">معلومات التوصيل</h2>
+                <span className="block h-[3px] w-16 rounded-full bg-[#a1688a] mx-auto mt-3" />
                 <p className="text-sm text-[#857d76] mt-4">املئي معلوماتك وسنتواصل معكِ هاتفياً لتأكيد الطلب قبل الشحن — بدون دفع مسبق.</p>
               </div>
 
               <form className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4" onSubmit={submitOrder}>
                 <div>
                   <label className="block text-sm font-medium text-[#2a2522] mb-1" htmlFor="customerName">الاسم الكامل</label>
-                  <input id="customerName" required value={form.customerName} onChange={(event) => updateForm("customerName", event.target.value)} placeholder="الاسم الكامل" className="w-full rounded-xl border border-[#d8cfc6] px-4 py-3 text-sm outline-none focus:border-[#617549]" />
+                  <input id="customerName" required value={form.customerName} onChange={(event) => updateForm("customerName", event.target.value)} placeholder="الاسم الكامل" className="w-full rounded-xl border border-[#d8cfc6] px-4 py-3 text-sm outline-none focus:border-[#a1688a]" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-[#2a2522] mb-1" htmlFor="phone">رقم الهاتف</label>
-                  <input id="phone" required type="tel" dir="ltr" value={form.phone} onChange={(event) => updateForm("phone", event.target.value)} placeholder="05 / 06 / 07 xx xx xx xx" className="w-full rounded-xl border border-[#d8cfc6] px-4 py-3 text-sm outline-none focus:border-[#617549]" />
+                  <input id="phone" required type="tel" dir="ltr" value={form.phone} onChange={(event) => updateForm("phone", event.target.value)} placeholder="05 / 06 / 07 xx xx xx xx" className="w-full rounded-xl border border-[#d8cfc6] px-4 py-3 text-sm outline-none focus:border-[#a1688a]" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-[#2a2522] mb-1" htmlFor="wilaya">الولاية</label>
-                  <select id="wilaya" required value={form.wilaya} onChange={(event) => { const next = WILAYAS.find((item) => item.code === event.target.value) ?? WILAYAS[0]; setForm((current) => ({ ...current, wilaya: next.code, commune: next.communes[0] })); }} className="w-full rounded-xl border border-[#d8cfc6] bg-white px-4 py-3 text-sm outline-none focus:border-[#617549]">
+                  <select id="wilaya" required value={form.wilaya} onChange={(event) => { const next = WILAYAS.find((item) => item.code === event.target.value) ?? WILAYAS[0]; setForm((current) => ({ ...current, wilaya: next.code, commune: next.communes[0] })); }} className="w-full rounded-xl border border-[#d8cfc6] bg-white px-4 py-3 text-sm outline-none focus:border-[#a1688a]">
                     <option value="">اختاري الولاية</option>
                     {WILAYAS.map((item) => <option key={item.code} value={item.code}>{item.code} — {item.ar}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-[#2a2522] mb-1" htmlFor="commune">البلدية</label>
-                  <select id="commune" required value={form.commune} onChange={(event) => updateForm("commune", event.target.value)} className="w-full rounded-xl border border-[#d8cfc6] bg-white px-4 py-3 text-sm outline-none focus:border-[#617549]">
+                  <select id="commune" required value={form.commune} onChange={(event) => updateForm("commune", event.target.value)} className="w-full rounded-xl border border-[#d8cfc6] bg-white px-4 py-3 text-sm outline-none focus:border-[#a1688a]">
                     {selectedWilaya.communes.map((item) => <option key={item} value={item}>{item}</option>)}
                   </select>
                 </div>
@@ -197,21 +197,21 @@ export default function CartPage() {
                     ]).map((option) => (
                       <label
                         key={option.value}
-                        className={`cursor-pointer rounded-xl border p-4 transition-colors ${deliveryType === option.value ? "border-[#617549] bg-[#eef1e8]" : "border-[#d8cfc6] bg-white hover:border-[#617549]/50"}`}
+                        className={`cursor-pointer rounded-xl border p-4 transition-colors ${deliveryType === option.value ? "border-[#a1688a] bg-[#f7ecf2]" : "border-[#d8cfc6] bg-white hover:border-[#a1688a]/50"}`}
                       >
                         <input type="radio" name="deliveryType" value={option.value} checked={deliveryType === option.value} onChange={() => setDeliveryType(option.value)} className="sr-only" />
                         <span className="block text-sm font-bold text-[#2a2522]">{option.label}</span>
-                        <span className="block text-sm font-medium text-[#617549] mt-1">{option.price === null ? "يُحدد حسب الوجهة" : formatPrice(option.price, "ar")}</span>
+                        <span className="block text-sm font-medium text-[#a1688a] mt-1">{option.price === null ? "يُحدد حسب الوجهة" : formatPrice(option.price, "ar")}</span>
                       </label>
                     ))}
                   </div>
                 </div>
                 <div className="sm:col-span-2">
                   <label className="block text-sm font-medium text-[#2a2522] mb-1" htmlFor="address">العنوان التفصيلي</label>
-                  <textarea id="address" required value={form.address} onChange={(event) => updateForm("address", event.target.value)} placeholder="الحي، رقم المنزل، معلم قريب..." className="w-full rounded-xl border border-[#d8cfc6] px-4 py-3 text-sm outline-none focus:border-[#617549] min-h-[88px]" />
+                  <textarea id="address" required value={form.address} onChange={(event) => updateForm("address", event.target.value)} placeholder="الحي، رقم المنزل، معلم قريب..." className="w-full rounded-xl border border-[#d8cfc6] px-4 py-3 text-sm outline-none focus:border-[#a1688a] min-h-[88px]" />
                 </div>
                 <div className="sm:col-span-2">
-                  <button type="submit" disabled={submitState === "loading"} className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#617549] text-[#fffaf8] px-8 py-4 text-base font-bold transition-opacity hover:opacity-90 disabled:opacity-60">
+                  <button type="submit" disabled={submitState === "loading"} className="w-full inline-flex items-center justify-center gap-2 rounded-full bg-[#a1688a] text-[#fffaf8] px-8 py-4 text-base font-bold transition-opacity hover:opacity-90 disabled:opacity-60">
                     {submitState === "loading" ? "جارٍ الإرسال..." : "تأكيد الطلب"}
                   </button>
                   {submitState === "error" && <p className="text-center text-sm font-medium text-red-600 mt-4">تعذر إرسال الطلب حالياً، يرجى المحاولة من جديد.</p>}

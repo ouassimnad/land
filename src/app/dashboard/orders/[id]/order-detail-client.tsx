@@ -30,12 +30,12 @@ function statusLabel(status: string) {
 }
 
 function statusStyle(status: string) {
-  if (status === "processing") return "bg-[#eef1e8] text-[#617549]";
+  if (status === "processing") return "bg-[#f7ecf2] text-[#a1688a]";
   if (status === "delivered") return "bg-[#f1eeec] text-[#857d76]";
   return "bg-[#fdf2dd] text-[#bb8b3e]";
 }
 
-const editInputClass = "mt-1 w-full rounded-lg border border-[#d8cfc6] bg-[#faf6f3] p-2 text-sm outline-none focus:border-[#617549]";
+const editInputClass = "mt-1 w-full rounded-lg border border-[#d8cfc6] bg-[#faf6f3] p-2 text-sm outline-none focus:border-[#a1688a]";
 
 export default function OrderDetailClient({ id }: { id: string }) {
   const [order, setOrder] = useState<Order | null>(null);
@@ -101,12 +101,12 @@ export default function OrderDetailClient({ id }: { id: string }) {
             <h1 className="text-lg font-bold text-[#2a2522]">تفاصيل الطلب</h1>
             <p className="hidden text-xs text-[#6b5f57] sm:block">مراجعة معلومات الطلب وتعديلها أو حذفها</p>
           </div>
-          <div className="grid h-9 w-9 place-items-center rounded-full bg-white/70 text-sm font-bold text-[#617549]">ن</div>
+          <div className="grid h-9 w-9 place-items-center rounded-full bg-white/70 text-sm font-bold text-[#a1688a]">ن</div>
         </div>
       </header>
 
       <main className="mx-auto max-w-4xl px-4 py-6 sm:px-6 lg:py-9">
-        <a className="mb-5 inline-flex items-center gap-1.5 text-xs font-medium text-[#617549] hover:underline" href="/dashboard">→ العودة إلى الطلبات</a>
+        <a className="mb-5 inline-flex items-center gap-1.5 text-xs font-medium text-[#a1688a] hover:underline" href="/dashboard">→ العودة إلى الطلبات</a>
         {loading && <div className="rounded-xl border border-dashed border-[#d8cfc6] px-6 py-14 text-center text-sm text-[#857d76]">جارٍ تحميل تفاصيل الطلب...</div>}
         {!loading && !order && <div className="rounded-xl border border-dashed border-[#d8cfc6] px-6 py-14 text-center text-sm text-[#857d76]">الطلب غير موجود</div>}
         {!loading && order && (
@@ -118,7 +118,7 @@ export default function OrderDetailClient({ id }: { id: string }) {
               </div>
               <div className="flex flex-wrap items-center gap-3">
                 {isEditing ? (
-                  <select value={editForm.status} onChange={(e) => updateField("status", e.target.value)} className="rounded-lg border border-[#d8cfc6] bg-[#faf6f3] p-2 text-sm outline-none focus:border-[#617549]">
+                  <select value={editForm.status} onChange={(e) => updateField("status", e.target.value)} className="rounded-lg border border-[#d8cfc6] bg-[#faf6f3] p-2 text-sm outline-none focus:border-[#a1688a]">
                     <option value="new">جديد</option>
                     <option value="processing">قيد المعالجة</option>
                     <option value="delivered">تم التوصيل</option>
@@ -134,7 +134,7 @@ export default function OrderDetailClient({ id }: { id: string }) {
                   </div>
                 ) : (
                   <div className="flex gap-2">
-                    <button disabled={isSaving} onClick={saveChanges} className="rounded-full bg-[#617549] px-4 py-2 text-xs font-bold text-[#fffaf8] transition-opacity hover:opacity-90 disabled:opacity-60">{isSaving ? "جارٍ الحفظ..." : "حفظ التغييرات"}</button>
+                    <button disabled={isSaving} onClick={saveChanges} className="rounded-full bg-[#a1688a] px-4 py-2 text-xs font-bold text-[#fffaf8] transition-opacity hover:opacity-90 disabled:opacity-60">{isSaving ? "جارٍ الحفظ..." : "حفظ التغييرات"}</button>
                     <button onClick={() => { setIsEditing(false); setEditForm(order); }} className="rounded-full bg-[#f1ece7] px-4 py-2 text-xs font-medium text-[#2a2522] transition-opacity hover:opacity-80">إلغاء</button>
                   </div>
                 )}
@@ -183,7 +183,7 @@ export default function OrderDetailClient({ id }: { id: string }) {
                         <div className="truncate text-[13px] font-medium text-[#2a2522]">{item.nameAr || "منتج"}</div>
                         <div className="mt-0.5 text-[11px] text-[#857d76]">{[item.color, item.size].filter(Boolean).join(" · ") || "بدون مواصفات"} × {item.quantity}</div>
                       </div>
-                      <strong className="shrink-0 text-[13px] font-bold text-[#617549]">{formatPrice(item.unitPrice * item.quantity, "ar")}</strong>
+                      <strong className="shrink-0 text-[13px] font-bold text-[#a1688a]">{formatPrice(item.unitPrice * item.quantity, "ar")}</strong>
                     </div>
                   ))}
                 </div>
@@ -196,7 +196,7 @@ export default function OrderDetailClient({ id }: { id: string }) {
                     <div className="text-[13px] font-medium text-[#2a2522]">× {order.quantity}</div>
                     <div className="mt-0.5 text-[11px] text-[#857d76]">{order.color || "بدون لون"} · {order.size || "بدون مقاس"}</div>
                   </div>
-                  <strong className="shrink-0 text-[13px] font-bold text-[#617549]">{formatPrice(Number(order.unitPrice) * order.quantity, "ar")}</strong>
+                  <strong className="shrink-0 text-[13px] font-bold text-[#a1688a]">{formatPrice(Number(order.unitPrice) * order.quantity, "ar")}</strong>
                 </div>
               </div>
             )}

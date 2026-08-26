@@ -234,7 +234,7 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
             <button aria-label={t.menu} className="icon-button" onClick={() => { setMenuOpen(true); setCartOpen(false); }} type="button">
               <Icon name="menu" size={21} />
             </button>
-            <Link href="/" className="text-sm font-medium text-[#2a2522] hover:text-[#617549] transition-colors hidden sm:inline">{t.backToStore}</Link>
+            <Link href="/" className="text-sm font-medium text-[#2a2522] hover:text-[#a1688a] transition-colors hidden sm:inline">{t.backToStore}</Link>
           </div>
           <Link href="/" className="w-1/3 flex justify-center" aria-label="Clochette">
             <img alt="Clochette logo" src="/logo.png" className="h-9 w-auto" />
@@ -243,7 +243,7 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
             <button aria-label={t.cartTitle} className="icon-button relative" onClick={() => { setCartOpen(true); setMenuOpen(false); }} type="button">
               <Icon name="bag" size={21} />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#617549] px-1 text-[10px] font-bold text-[#fffaf8]">{cartCount}</span>
+                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#a1688a] px-1 text-[10px] font-bold text-[#fffaf8]">{cartCount}</span>
               )}
             </button>
           </div>
@@ -288,7 +288,7 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-[#2a2522] truncate">{locale === "ar" ? line.nameAr : line.nameFr}</div>
                     <div className="text-xs text-[#857d76] mt-0.5">{line.color}{line.size ? ` · ${line.size}` : ""} × {line.quantity}</div>
-                    <div className="text-sm font-bold text-[#617549] mt-1">{formatPrice(line.price * line.quantity, locale)}</div>
+                    <div className="text-sm font-bold text-[#a1688a] mt-1">{formatPrice(line.price * line.quantity, locale)}</div>
                   </div>
                   <button type="button" aria-label={t.remove} onClick={() => removeLine(line.key)} className="icon-button text-red-500 hover:text-red-700">
                     <Icon name="close" size={17} />
@@ -297,11 +297,11 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
               ))}
             </div>
             <div className="mt-auto pt-5 border-t border-[#e8e2dc]">
-              <div className="flex justify-between items-center font-bold text-[#617549] mb-4">
+              <div className="flex justify-between items-center font-bold text-[#a1688a] mb-4">
                 <span>{t.total}</span>
                 <span>{formatPrice(cartTotal, locale)}</span>
               </div>
-              <Link href="/cart" className="flex items-center justify-center gap-2 rounded-full bg-[#617549] text-[#fffaf8] px-6 py-3.5 text-sm font-bold transition-opacity hover:opacity-90">
+              <Link href="/cart" className="flex items-center justify-center gap-2 rounded-full bg-[#a1688a] text-[#fffaf8] px-6 py-3.5 text-sm font-bold transition-opacity hover:opacity-90">
                 {t.checkout} <Icon name="arrow" size={16} />
               </Link>
             </div>
@@ -316,7 +316,7 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
             <div className="relative aspect-[3/4] overflow-hidden rounded-3xl border border-[#e8e2dc] bg-[#e3dedc]">
               <img src={mainImage} alt={productData.name[locale]} className="object-cover w-full h-full" />
               {discount > 0 && (
-                <span className="absolute top-4 right-4 bg-[#617549] text-[#fffaf8] px-4 py-1.5 text-sm font-bold rounded-full shadow-sm">
+                <span className="absolute top-4 right-4 bg-[#a1688a] text-[#fffaf8] px-4 py-1.5 text-sm font-bold rounded-full shadow-sm">
                   -{discount}%
                 </span>
               )}
@@ -328,7 +328,7 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
                     key={`${image}-${index}`}
                     type="button"
                     onClick={() => setActiveImage(index)}
-                    className={`w-20 h-24 shrink-0 overflow-hidden rounded-xl border-2 transition-colors ${activeImage === index ? "border-[#617549]" : "border-transparent hover:border-[#cbbfb4]"}`}
+                    className={`w-20 h-24 shrink-0 overflow-hidden rounded-xl border-2 transition-colors ${activeImage === index ? "border-[#a1688a]" : "border-transparent hover:border-[#cbbfb4]"}`}
                   >
                     <img src={image} alt="" className="object-cover w-full h-full" />
                   </button>
@@ -342,7 +342,7 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
             <h1 className="text-3xl md:text-4xl font-bold text-[#2a2522]">{productData.name[locale]}</h1>
 
             <div className="flex items-center gap-4 mt-4 flex-wrap">
-              <span className="text-2xl md:text-3xl font-bold text-[#617549]">{formatPrice(productData.price, locale)}</span>
+              <span className="text-2xl md:text-3xl font-bold text-[#a1688a]">{formatPrice(productData.price, locale)}</span>
               {discount > 0 && (
                 <span className="text-lg text-[#857d76] line-through">{formatPrice(productData.oldPrice, locale)}</span>
               )}
@@ -362,7 +362,7 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
                       key={item.value}
                       type="button"
                       onClick={() => setSelectedColor(item.value)}
-                      className={`px-4 py-2 rounded-full border text-sm transition-colors ${selectedColor === item.value ? "border-[#617549] bg-[#617549] text-[#fffaf8]" : "border-[#d8cfc6] bg-white text-[#2a2522] hover:border-[#617549]"}`}
+                      className={`px-4 py-2 rounded-full border text-sm transition-colors ${selectedColor === item.value ? "border-[#a1688a] bg-[#a1688a] text-[#fffaf8]" : "border-[#d8cfc6] bg-white text-[#2a2522] hover:border-[#a1688a]"}`}
                     >
                       {item[locale]}
                     </button>
@@ -383,7 +383,7 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
                       key={size}
                       type="button"
                       onClick={() => setSelectedSize(size)}
-                      className={`min-w-12 px-4 py-2 rounded-full border text-sm font-medium transition-colors ${selectedSize === size ? "border-[#617549] bg-[#617549] text-[#fffaf8]" : "border-[#d8cfc6] bg-white text-[#2a2522] hover:border-[#617549]"}`}
+                      className={`min-w-12 px-4 py-2 rounded-full border text-sm font-medium transition-colors ${selectedSize === size ? "border-[#a1688a] bg-[#a1688a] text-[#fffaf8]" : "border-[#d8cfc6] bg-white text-[#2a2522] hover:border-[#a1688a]"}`}
                     >
                       {size}
                     </button>
@@ -396,24 +396,24 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
               <div className="text-sm font-medium text-[#2a2522] mb-3">{t.quantity}</div>
               <div className="flex items-center gap-3 flex-wrap">
                 <div className="inline-flex items-center rounded-full border border-[#d8cfc6] bg-white overflow-hidden">
-                  <button type="button" className="px-4 py-2 text-lg text-[#617549] hover:bg-[#f3ece5]" onClick={() => setQuantity((q) => Math.max(1, q - 1))}>−</button>
+                  <button type="button" className="px-4 py-2 text-lg text-[#a1688a] hover:bg-[#f3ece5]" onClick={() => setQuantity((q) => Math.max(1, q - 1))}>−</button>
                   <span className="px-5 font-medium text-[#2a2522]">{quantity}</span>
-                  <button type="button" className="px-4 py-2 text-lg text-[#617549] hover:bg-[#f3ece5]" onClick={() => setQuantity((q) => Math.min(10, q + 1))}>+</button>
+                  <button type="button" className="px-4 py-2 text-lg text-[#a1688a] hover:bg-[#f3ece5]" onClick={() => setQuantity((q) => Math.min(10, q + 1))}>+</button>
                 </div>
-                <button type="button" onClick={addToCart} className={`inline-flex items-center gap-2 rounded-full border-2 px-6 py-2.5 text-sm font-bold transition-colors ${addedFlash ? "border-[#617549] bg-[#617549] text-[#fffaf8]" : "border-[#617549] text-[#617549] hover:bg-[#617549] hover:text-[#fffaf8]"}`}>
+                <button type="button" onClick={addToCart} className={`inline-flex items-center gap-2 rounded-full border-2 px-6 py-2.5 text-sm font-bold transition-colors ${addedFlash ? "border-[#a1688a] bg-[#a1688a] text-[#fffaf8]" : "border-[#a1688a] text-[#a1688a] hover:bg-[#a1688a] hover:text-[#fffaf8]"}`}>
                   <Icon name="bag" size={17} /> {addedFlash ? t.added : t.addToCart}
                 </button>
               </div>
             </div>
 
-            <button type="button" onClick={orderNow} className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-[#617549] text-[#fffaf8] px-8 py-4 text-base font-bold transition-opacity hover:opacity-90">
+            <button type="button" onClick={orderNow} className="mt-8 inline-flex items-center justify-center gap-2 rounded-full bg-[#a1688a] text-[#fffaf8] px-8 py-4 text-base font-bold transition-opacity hover:opacity-90">
               {t.orderNow} <Icon name="arrow" size={18} />
             </button>
 
             <ul className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3">
               {benefits.map((benefit) => (
                 <li key={benefit.icon} className="flex items-center gap-3 rounded-2xl bg-[#E7D0D0]/45 border border-[#E7D0D0] px-4 py-3 text-sm text-[#2a2522]">
-                  <span className="text-[#617549]"><Icon name={benefit.icon} size={19} /></span>
+                  <span className="text-[#a1688a]"><Icon name={benefit.icon} size={19} /></span>
                   {benefit.text}
                 </li>
               ))}

@@ -139,7 +139,7 @@ function SectionTitle({ children }: { children: ReactNode }) {
 function SectionDivider() {
   return (
     <div aria-hidden="true" className="relative z-10 mx-auto my-14 h-px w-full max-w-6xl bg-[#d8cfc6]">
-      <span className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-[#617549]" />
+      <span className="absolute left-1/2 top-1/2 h-2.5 w-2.5 -translate-x-1/2 -translate-y-1/2 rotate-45 bg-[#a1688a]" />
     </div>
   );
 }
@@ -171,7 +171,7 @@ function ProductCard({ product, locale, viewLabel }: { product: Product; locale:
           {oldPrice && <span className="text-xs text-[#857d76] line-through ms-1">{formatPrice(oldPrice, locale)}</span>}
         </span>
       </div>
-      <Link href={`/product/${product.id}`} className="block bg-[#617549] text-[#fffaf8] text-center py-3 text-sm font-bold transition-opacity hover:opacity-90">
+      <Link href={`/product/${product.id}`} className="block bg-[#a1688a] text-[#fffaf8] text-center py-3 text-sm font-bold transition-opacity hover:opacity-90">
         {viewLabel}
       </Link>
     </div>
@@ -201,7 +201,7 @@ function DiscountCard({ product, locale, viewLabel }: { product: Product; locale
         <span className="font-medium text-[#2a2522] truncate">{productName}</span>
         <span className="font-medium text-[#2a2522] whitespace-nowrap">{formatPrice(Number(product.price), locale)}</span>
       </div>
-      <Link href={`/product/${product.id}`} className="block bg-[#617549] text-[#fffaf8] text-center py-3 text-sm font-bold transition-opacity hover:opacity-90">
+      <Link href={`/product/${product.id}`} className="block bg-[#a1688a] text-[#fffaf8] text-center py-3 text-sm font-bold transition-opacity hover:opacity-90">
         {viewLabel}
       </Link>
     </div>
@@ -296,7 +296,7 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
             <button aria-label={t.cart} className="icon-button relative" onClick={() => { setCartOpen(true); setMenuOpen(false); }} type="button">
               <Icon name="bag" size={21} />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#617549] px-1 text-[10px] font-bold text-[#fffaf8]">{cartCount}</span>
+                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#a1688a] px-1 text-[10px] font-bold text-[#fffaf8]">{cartCount}</span>
               )}
             </button>
           </div>
@@ -307,9 +307,9 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
             <img alt="Clochette logo" src="/logo.png" className="h-10 w-auto" />
           </Link>
           <nav className="flex items-center gap-8">
-            <Link className="text-sm font-medium text-[#2a2522] transition-colors hover:text-[#617549]" href="/about">{t.about}</Link>
-            <Link className="text-sm font-medium text-[#2a2522] transition-colors hover:text-[#617549]" href="/why-clochette">{t.whyUs}</Link>
-            <Link className="text-sm font-medium text-[#2a2522] transition-colors hover:text-[#617549]" href="/contact">{t.contact}</Link>
+            <Link className="text-sm font-medium text-[#2a2522] transition-colors hover:text-[#a1688a]" href="/about">{t.about}</Link>
+            <Link className="text-sm font-medium text-[#2a2522] transition-colors hover:text-[#a1688a]" href="/why-clochette">{t.whyUs}</Link>
+            <Link className="text-sm font-medium text-[#2a2522] transition-colors hover:text-[#a1688a]" href="/contact">{t.contact}</Link>
           </nav>
           <div className="flex items-center gap-4 shrink-0">
             <form
@@ -329,7 +329,7 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
             <button aria-label={t.cart} className="icon-button relative" onClick={() => { setCartOpen(true); setMenuOpen(false); }} type="button">
               <Icon name="bag" size={21} />
               {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#617549] px-1 text-[10px] font-bold text-[#fffaf8]">{cartCount}</span>
+                <span className="absolute -top-1 -right-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-[#a1688a] px-1 text-[10px] font-bold text-[#fffaf8]">{cartCount}</span>
               )}
             </button>
           </div>
@@ -399,7 +399,7 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-[#2a2522] truncate">{locale === "ar" ? line.nameAr : line.nameFr}</div>
                     <div className="text-xs text-[#857d76] mt-0.5">{line.color}{line.size ? ` · ${line.size}` : ""} × {line.quantity}</div>
-                    <div className="text-sm font-bold text-[#617549] mt-1">{formatPrice(line.price * line.quantity, locale)}</div>
+                    <div className="text-sm font-bold text-[#a1688a] mt-1">{formatPrice(line.price * line.quantity, locale)}</div>
                   </div>
                   <button type="button" aria-label={t.remove} onClick={() => removeLine(line.key)} className="text-red-500 hover:text-red-700 p-1">
                     <Icon name="close" size={17} />
@@ -408,11 +408,11 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
               ))}
             </div>
             <div className="mt-auto pt-5 border-t border-[#e8e2dc]">
-              <div className="flex justify-between items-center font-bold text-[#617549] mb-4">
+              <div className="flex justify-between items-center font-bold text-[#a1688a] mb-4">
                 <span>{t.total}</span>
                 <span>{formatPrice(cartTotal, locale)}</span>
               </div>
-              <Link href="/cart" onClick={() => setCartOpen(false)} className="flex items-center justify-center gap-2 rounded-full bg-[#617549] text-[#fffaf8] px-6 py-3.5 text-sm font-bold transition-opacity hover:opacity-90">
+              <Link href="/cart" onClick={() => setCartOpen(false)} className="flex items-center justify-center gap-2 rounded-full bg-[#a1688a] text-[#fffaf8] px-6 py-3.5 text-sm font-bold transition-opacity hover:opacity-90">
                 {t.checkout}
               </Link>
             </div>
@@ -571,9 +571,9 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
           <div className="mt-12 grid w-full max-w-4xl grid-cols-1 gap-10 sm:grid-cols-3">
             <nav aria-label={t.pages} className="flex flex-col items-center gap-3">
               <span className="text-sm font-bold text-[#2a2522]">{t.pages}</span>
-              <Link className="text-sm text-[#857d76] transition-colors hover:text-[#617549]" href="/about">{t.about}</Link>
-              <Link className="text-sm text-[#857d76] transition-colors hover:text-[#617549]" href="/why-clochette">{t.whyUs}</Link>
-              <Link className="text-sm text-[#857d76] transition-colors hover:text-[#617549]" href="/contact">{t.contact}</Link>
+              <Link className="text-sm text-[#857d76] transition-colors hover:text-[#a1688a]" href="/about">{t.about}</Link>
+              <Link className="text-sm text-[#857d76] transition-colors hover:text-[#a1688a]" href="/why-clochette">{t.whyUs}</Link>
+              <Link className="text-sm text-[#857d76] transition-colors hover:text-[#a1688a]" href="/contact">{t.contact}</Link>
             </nav>
 
             <div className="flex flex-col items-center gap-3">
@@ -598,7 +598,7 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
           <span>{t.rights}</span>
           <span className="text-xs">
             {t.builtBy}{" "}
-            <a className="font-semibold text-[#617549] hover:underline" href="https://www.instagram.com/ne__dev/" rel="noreferrer" target="_blank">Ne__dev</a>
+            <a className="font-semibold text-[#a1688a] hover:underline" href="https://www.instagram.com/ne__dev/" rel="noreferrer" target="_blank">Ne__dev</a>
           </span>
         </div>
       </footer>

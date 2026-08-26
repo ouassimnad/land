@@ -29,7 +29,7 @@ export default function AnnouncementBar({ items, dir = "ltr" }: { items: string[
   }, [currentIndex, items.length]);
 
   return (
-    <div className="overflow-hidden w-full h-10 flex items-center justify-center relative bg-[#E7D0D0] text-[#617549] text-base md:text-lg font-bold" dir={dir}>
+    <div className="overflow-hidden w-full h-10 flex items-center justify-center relative bg-[#E7D0D0] text-[#a1688a] text-base md:text-lg font-bold" dir={dir}>
       <div
         key={currentIndex}
         className="absolute whitespace-nowrap will-change-transform"
