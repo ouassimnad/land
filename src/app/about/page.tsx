@@ -1,16 +1,20 @@
 import Link from "next/link";
+import { getBrandAssets } from "@/lib/brand";
 
 export const metadata = {
   title: "من نحن | Clochette",
 };
 
-export default function AboutPage() {
+export const dynamic = "force-dynamic";
+
+export default async function AboutPage() {
+  const brand = await getBrandAssets();
   return (
     <div className="min-h-screen bg-[#fffdfb] text-[#2a2522]" dir="rtl">
       <header className="border-b border-[#e8e2dc]" style={{ backgroundColor: "#E7D0D0" }}>
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 py-4">
           <Link href="/" aria-label="Clochette">
-            <img alt="Clochette logo" src="/logo.png" className="h-8 w-auto" />
+            {brand.logo && <img alt="Clochette logo" src={brand.logo} className="h-8 w-auto" />}
           </Link>
           <Link href="/" className="text-sm font-bold text-[#a1688a] transition-opacity hover:opacity-80">
             العودة للمتجر

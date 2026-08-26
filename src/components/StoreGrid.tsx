@@ -208,8 +208,11 @@ function DiscountCard({ product, locale, viewLabel }: { product: Product; locale
   );
 }
 
-export default function StoreGrid({ products, reviews, social }: { products: Product[]; reviews: Review[]; social?: SocialLinks | null }) {
+export default function StoreGrid({ products, reviews, social, brand }: { products: Product[]; reviews: Review[]; social?: SocialLinks | null; brand?: { logo: string; hero: string } | null }) {
   const locale: Locale = "ar";
+  const logoUrl = brand?.logo?.trim() ?? "";
+  const heroUrl = brand?.hero?.trim() ?? "";
+  const heroIsVideo = /\.(mp4|webm)(\?|$)/i.test(heroUrl);
   const socialLinks: SocialLinks = {
     instagram: social?.instagram?.trim() || "https://www.instagram.com",
     facebook: social?.facebook?.trim() || "https://www.facebook.com",
@@ -279,7 +282,7 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
             </button>
           </div>
           <Link href="/" className="logo-lockup flex justify-center w-1/3" aria-label="Clochette">
-            <img alt="Clochette logo" src="/logo.png" className="h-8 w-auto" />
+            {logoUrl && <img alt="Clochette logo" src={logoUrl} className="h-8 w-auto" />}
           </Link>
           <div className="flex justify-end items-center gap-5 w-1/3">
             <button
@@ -304,7 +307,7 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
 
         <div className="hidden md:flex mx-auto max-w-7xl px-6 items-center justify-between gap-6 py-4">
           <Link href="/" className="logo-lockup shrink-0" aria-label="Clochette">
-            <img alt="Clochette logo" src="/logo.png" className="h-10 w-auto" />
+            {logoUrl && <img alt="Clochette logo" src={logoUrl} className="h-10 w-auto" />}
           </Link>
           <nav className="flex items-center gap-8">
             <Link className="text-sm font-medium text-[#2a2522] transition-colors hover:text-[#a1688a]" href="/about">{t.about}</Link>
@@ -420,23 +423,29 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
         )}
       </aside>
 
-      <section className="relative w-full h-screen overflow-hidden">
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover"
-        >
-          <source src="/hero.mp4" type="video/mp4" />
-        </video>
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-x-0 bottom-16 flex justify-center z-10">
-          <h2 className="text-white text-4xl md:text-6xl font-serif text-center drop-shadow-md tracking-wider">
-            {locale === "ar" ? "اكتشفي الأناقة" : "Découvrez l'élégance"}
-          </h2>
-        </div>
-      </section>
+      {heroUrl && (
+        <section className="relative w-full h-screen overflow-hidden">
+          {heroIsVideo ? (
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover"
+            >
+              <source src={heroUrl} type={heroUrl.toLowerCase().includes(".webm") ? "video/webm" : "video/mp4"} />
+            </video>
+          ) : (
+            <img src={heroUrl} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          )}
+          <div className="absolute inset-0 bg-black/20" />
+          <div className="absolute inset-x-0 bottom-16 flex justify-center z-10">
+            <h2 className="text-white text-4xl md:text-6xl font-serif text-center drop-shadow-md tracking-wider">
+              {locale === "ar" ? "اكتشفي الأناقة" : "Découvrez l'élégance"}
+            </h2>
+          </div>
+        </section>
+      )}
 
       {(uncategorizedProducts.length > 0 || visibleProducts.length === 0) && (
         <>
@@ -565,7 +574,7 @@ export default function StoreGrid({ products, reviews, social }: { products: Pro
 
       <footer className="footer mt-4 relative z-10 border-t border-[#e8e2dc]" style={{ backgroundColor: "#E7D0D0" }}>
         <div className="footer-top max-w-7xl mx-auto px-4 pt-14 pb-10 flex flex-col items-center text-center">
-          <img alt="Clochette logo" src="/logo.png" className="h-14 w-auto" />
+          {logoUrl && <img alt="Clochette logo" src={logoUrl} className="h-14 w-auto" />}
           <p className="footer-copy mt-5 max-w-md text-[#2a2522] leading-relaxed">{t.footerText}</p>
 
           <div className="mt-12 grid w-full max-w-4xl grid-cols-1 gap-10 sm:grid-cols-3">

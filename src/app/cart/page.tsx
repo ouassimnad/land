@@ -22,6 +22,7 @@ export default function CartPage() {
   const [submitState, setSubmitState] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [deliveryPrices, setDeliveryPrices] = useState<Record<string, WilayaDeliveryPrices>>({});
   const [deliveryType, setDeliveryType] = useState<DeliveryType>("home");
+  const [logoUrl, setLogoUrl] = useState("");
   const [form, setForm] = useState<OrderForm>({
     customerName: "",
     phone: "",
@@ -33,6 +34,13 @@ export default function CartPage() {
   useEffect(() => {
     setLines(readCart());
     setReady(true);
+    fetch("/api/settings/brand")
+      .then(async (response) => {
+        if (!response.ok) throw new Error("offline");
+        const data = (await response.json()) as { brand?: { logo?: string } };
+        setLogoUrl(data.brand?.logo?.trim() ?? "");
+      })
+      .catch(() => undefined);
     fetch("/api/settings/delivery")
       .then(async (response) => {
         if (!response.ok) throw new Error("offline");
@@ -98,7 +106,7 @@ export default function CartPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex justify-between items-center py-3">
           <Link href="/" className="text-sm font-medium text-[#2a2522] hover:text-[#a1688a] transition-colors">العودة للمتجر</Link>
           <Link href="/" className="flex justify-center" aria-label="Clochette">
-            <img alt="Clochette logo" src="/logo.png" className="h-9 w-auto" />
+            {logoUrl && <img alt="Clochette logo" src={logoUrl} className="h-9 w-auto" />}
           </Link>
           <span aria-hidden="true" className="w-20" />
         </div>

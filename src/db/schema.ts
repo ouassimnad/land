@@ -81,3 +81,9 @@ export const socialSettings = pgTable("social_settings", {
   facebook: text("facebook").notNull().default(""),
   tiktok: text("tiktok").notNull().default(""),
 });
+
+export const storeSettings = pgTable("store_settings", {
+  id: integer("id").primaryKey().default(1),
+  logo: text("logo").notNull().default(""),
+  hero: text("hero").notNull().default(""),
+});

@@ -1,6 +1,6 @@
 import { desc, eq, type InferSelectModel } from "drizzle-orm";
 import { db } from "@/db";
-import { products, reviews, socialSettings } from "@/db/schema";
+import { products, reviews, socialSettings, storeSettings } from "@/db/schema";
 import StoreGrid from "@/components/StoreGrid";
 
 export const dynamic = "force-dynamic";
@@ -9,6 +9,7 @@ export default async function HomePage() {
   let activeProducts: InferSelectModel<typeof products>[] = [];
   let reviewImages: InferSelectModel<typeof reviews>[] = [];
   let social: InferSelectModel<typeof socialSettings> | null = null;
+  let brand: InferSelectModel<typeof storeSettings> | null = null;
 
   try {
     activeProducts = await db
@@ -35,5 +36,12 @@ export default async function HomePage() {
     console.error("Failed to fetch social links", e);
   }
 
-  return <StoreGrid products={activeProducts} reviews={reviewImages} social={social} />;
+  try {
+    const [row] = await db.select().from(storeSettings).where(eq(storeSettings.id, 1)).limit(1);
+    brand = row ?? null;
+  } catch (e) {
+    console.error("Failed to fetch brand assets", e);
+  }
+
+  return <StoreGrid products={activeProducts} reviews={reviewImages} social={social} brand={brand} />;
 }

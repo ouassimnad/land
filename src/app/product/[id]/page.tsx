@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { products } from "@/db/schema";
+import { products, storeSettings } from "@/db/schema";
 import Storefront from "@/app/storefront";
 import { PRODUCT as STATIC_PRODUCT } from "@/lib/catalog";
 import { notFound } from "next/navigation";
@@ -62,5 +62,13 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     notFound();
   }
 
-  return <Storefront productData={finalProduct} productId={productId} />;
+  let logoUrl = "";
+  try {
+    const [brandRow] = await db.select().from(storeSettings).where(eq(storeSettings.id, 1)).limit(1);
+    logoUrl = brandRow?.logo?.trim() ?? "";
+  } catch (e) {
+    console.error("Failed to fetch brand assets", e);
+  }
+
+  return <Storefront productData={finalProduct} productId={productId} logoUrl={logoUrl} />;
 }

@@ -27,6 +27,8 @@ type Order = {
   createdAt: string;
 };
 
+type ColorEntry = string | { ar: string; fr: string; value: string; image: string };
+
 type DBProduct = {
   id: number;
   nameFr: string;
@@ -37,7 +39,7 @@ type DBProduct = {
   deliveryPrice: string | number | null;
   discount: number | null;
   images: string[];
-  colors: string[];
+  colors: ColorEntry[];
   sizes: string[];
   category: string | null;
 };
@@ -51,7 +53,7 @@ type ProductFormState = {
   descriptionAr: string;
   descriptionFr: string;
   images: string[];
-  colors: string[];
+  imageColors: string[];
   sizes: string[];
   category: string;
 };
@@ -64,7 +66,7 @@ const EMPTY_PRODUCT_FORM: ProductFormState = {
   descriptionAr: "",
   descriptionFr: "",
   images: [],
-  colors: [],
+  imageColors: [],
   sizes: [],
   category: "",
 };
@@ -388,12 +390,119 @@ export default function DashboardClient() {
                     </div>
                   </form>
                 </div>
+                <BrandCard />
                 <SocialSettingsCard />
               </section>
             )}
           </main>
         </div>
       </div>
+    </div>
+  );
+}
+
+function BrandCard() {
+  const [brand, setBrand] = useState({ logo: "", hero: "" });
+  const [saving, setSaving] = useState(false);
+  const [uploading, setUploading] = useState("");
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetch("/api/settings/brand")
+      .then(async (response) => {
+        if (!response.ok) throw new Error("offline");
+        const data = (await response.json()) as { brand: { logo: string; hero: string } };
+        if (data.brand) setBrand(data.brand);
+      })
+      .catch(() => undefined);
+  }, []);
+
+  const uploadAsset = async (field: "logo" | "hero", file: File) => {
+    setUploading(field);
+    setMessage("");
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const response = await fetch("/api/upload", { method: "POST", body: fd });
+      const data = await response.json();
+      if (!data.url) throw new Error(data.error || "error");
+      setBrand((current) => ({ ...current, [field]: data.url }));
+    } catch (error) {
+      setMessage(error instanceof Error && error.message !== "error" ? error.message : "تعذر رفع الملف");
+    } finally {
+      setUploading("");
+    }
+  };
+
+  const saveBrand = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSaving(true);
+    setMessage("");
+    try {
+      const response = await fetch("/api/settings/brand", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(brand),
+      });
+      if (!response.ok) throw new Error("error");
+      setMessage("تم حفظ اللوغو والهيرو بنجاح");
+    } catch {
+      setMessage("تعذر الحفظ");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const heroIsVideo = /\.(mp4|webm)(\?|$)/i.test(brand.hero);
+
+  return (
+    <div className={`${cardClass} mt-5 max-w-xl p-6`}>
+      <h3 className="text-base font-bold text-[#2a2522]">اللوغو والهيرو</h3>
+      <p className="mt-1.5 text-xs text-[#857d76]">ارفعي لوغو المتجر (صورة) وهيرو الصفحة الرئيسية (صورة أو فيديو) ليظهرا في المتجر بدلاً من الملفات الثابتة.</p>
+      <form className="mt-6 flex flex-col gap-5" onSubmit={saveBrand}>
+        <div>
+          <label className={labelClass}>لوغو المتجر</label>
+          <div className="mt-1 flex items-center gap-4">
+            {brand.logo ? <img src={brand.logo} alt="اللوغو الحالي" className="h-14 w-14 rounded-lg border border-[#e8e2dc] object-cover" /> : <div className="flex h-14 w-14 items-center justify-center rounded-lg border border-dashed border-[#d8cfc6] text-[10px] text-[#857d76]">فارغ</div>}
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg bg-[#E7D0D0] px-4 py-2 text-xs font-medium text-[#2a2522] transition-opacity hover:opacity-80">
+              <span>{uploading === "logo" ? "جارٍ الرفع..." : "رفع صورة اللوغو"}</span>
+              <input type="file" accept="image/jpeg,image/png,image/webp" className="hidden" onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) uploadAsset("logo", file);
+                e.target.value = "";
+              }} />
+            </label>
+            {brand.logo && <button type="button" onClick={() => setBrand((current) => ({ ...current, logo: "" }))} className="text-xs font-medium text-red-500 hover:text-red-700">إزالة</button>}
+          </div>
+        </div>
+        <div>
+          <label className={labelClass}>هيرو الصفحة الرئيسية</label>
+          <div className="mt-1 flex items-center gap-4">
+            {brand.hero ? (
+              heroIsVideo ? (
+                <video src={brand.hero} muted playsInline className="h-20 w-32 rounded-lg border border-[#e8e2dc] object-cover" />
+              ) : (
+                <img src={brand.hero} alt="الهيرو الحالي" className="h-20 w-32 rounded-lg border border-[#e8e2dc] object-cover" />
+              )
+            ) : (
+              <div className="flex h-20 w-32 items-center justify-center rounded-lg border border-dashed border-[#d8cfc6] text-[10px] text-[#857d76]">فارغ</div>
+            )}
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg bg-[#E7D0D0] px-4 py-2 text-xs font-medium text-[#2a2522] transition-opacity hover:opacity-80">
+              <span>{uploading === "hero" ? "جارٍ الرفع..." : "رفع صورة أو فيديو"}</span>
+              <input type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" className="hidden" onChange={(e) => {
+                const file = e.target.files?.[0];
+                if (file) uploadAsset("hero", file);
+                e.target.value = "";
+              }} />
+            </label>
+            {brand.hero && <button type="button" onClick={() => setBrand((current) => ({ ...current, hero: "" }))} className="text-xs font-medium text-red-500 hover:text-red-700">إزالة</button>}
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <button className={primaryButtonClass} disabled={saving} type="submit">{saving ? "جارٍ الحفظ..." : "حفظ اللوغو والهيرو"}</button>
+          {message && <span className="text-xs font-medium text-[#a1688a]">{message}</span>}
+        </div>
+      </form>
     </div>
   );
 }
@@ -620,7 +729,12 @@ function ProductsTab({ products, onUpdate }: { products: DBProduct[]; onUpdate: 
       descriptionAr: product.descriptionAr,
       descriptionFr: product.descriptionFr,
       images: product.images ?? [],
-      colors: product.colors ?? [],
+      imageColors: (product.images ?? []).map((img, index) => {
+        const linked = (product.colors ?? []).find((entry) => typeof entry === "object" && entry.image === img);
+        if (linked && typeof linked === "object") return linked.value;
+        const legacy = (product.colors ?? [])[index];
+        return typeof legacy === "string" ? legacy : "";
+      }),
       sizes: product.sizes ?? [],
       category: product.category ?? "",
     });
@@ -641,7 +755,12 @@ function ProductsTab({ products, onUpdate }: { products: DBProduct[]; onUpdate: 
       descriptionAr: editing.descriptionAr,
       descriptionFr: editing.descriptionFr,
       images: editing.images,
-      colors: editing.colors,
+      colors: editing.images
+        .map((img, i) => {
+          const value = (editing.imageColors[i] ?? "").trim();
+          return { ar: value, fr: value, value, image: img };
+        })
+        .filter((entry, index, list) => entry.value !== "" && list.findIndex((item) => item.value === entry.value) === index),
       sizes: editing.sizes,
       category: editing.category.trim() ? editing.category.trim() : null,
     };
@@ -715,50 +834,65 @@ function ProductsTab({ products, onUpdate }: { products: DBProduct[]; onUpdate: 
           </div>
           <div>
             <label className={`${labelClass} mb-2`}>صور المنتج</label>
-            <div className="mb-3 flex flex-wrap gap-3">
+            <div className="mb-3 flex flex-wrap gap-4">
               {editing.images.map((img, i) => (
-                <div key={i} className="group relative">
-                  <img src={img} alt={`صورة ${i + 1}`} className="h-24 w-24 rounded-lg border border-[#e8e2dc] object-cover" />
-                  <button type="button" onClick={() => {
-                    const imgs = [...editing.images];
-                    imgs.splice(i, 1);
-                    setEditing({ ...editing, images: imgs });
-                  }} className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">×</button>
+                <div key={i} className="group flex flex-col gap-1.5">
+                  <div className="relative">
+                    <img src={img} alt={`صورة ${i + 1}`} className="h-24 w-24 rounded-lg border border-[#e8e2dc] object-cover" />
+                    <button type="button" onClick={() => {
+                      const imgs = [...editing.images];
+                      imgs.splice(i, 1);
+                      const colorEntries = [...editing.imageColors];
+                      colorEntries.splice(i, 1);
+                      setEditing({ ...editing, images: imgs, imageColors: colorEntries });
+                    }} className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-red-500 text-xs text-white opacity-100 transition-opacity sm:opacity-0 sm:group-hover:opacity-100">×</button>
+                  </div>
+                  <input
+                    value={editing.imageColors[i] ?? ""}
+                    onChange={(e) => {
+                      const colorEntries = [...editing.imageColors];
+                      colorEntries[i] = e.target.value;
+                      setEditing({ ...editing, imageColors: colorEntries });
+                    }}
+                    placeholder="اللون"
+                    className="w-24 rounded-md border border-[#d8cfc6] bg-white px-2 py-1 text-xs text-[#2a2522] outline-none transition-colors focus:border-[#a1688a]"
+                  />
                 </div>
               ))}
             </div>
+            <p className="mb-2 text-[11px] text-[#857d76]">اكتبي لون كل صورة في الخانة التي تحتها — هكذا تظهر كل صورة مع لونها في صفحة المنتج.</p>
             <div className="flex flex-col gap-2">
               <label className="flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-[#a1688a] px-4 py-2.5 text-sm font-medium text-white transition-opacity hover:opacity-90">
                 <span>📷 رفع صورة من جهازك</span>
                 <input type="file" accept="image/jpeg,image/png,image/webp" multiple className="hidden" onChange={async (e) => {
                   const files = e.target.files;
                   if (!files?.length) return;
-                  const currentImages = [...editing.images];
+                  const addedImages: string[] = [];
                   for (const file of Array.from(files)) {
                     const fd = new FormData();
                     fd.append("file", file);
                     try {
                       const res = await fetch("/api/upload", { method: "POST", body: fd });
                       const data = await res.json();
-                      if (data.url) currentImages.push(data.url);
+                      if (data.url) addedImages.push(data.url);
                       else alert(data.error || "تعذر رفع الصورة");
                     } catch { alert("تعذر رفع الصورة"); }
                   }
-                  setEditing({ ...editing, images: currentImages });
+                  if (addedImages.length > 0) {
+                    setEditing({
+                      ...editing,
+                      images: [...editing.images, ...addedImages],
+                      imageColors: [...editing.imageColors, ...addedImages.map(() => "")],
+                    });
+                  }
                   e.target.value = "";
                 }} />
               </label>
             </div>
           </div>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-            <div>
-              <label className={labelClass}>المقاسات</label>
-              <TagInput dir="ltr" tags={editing.sizes} onChange={(sizes) => setEditing({ ...editing, sizes })} placeholder="اكتبي المقاس ثم اضغطي Enter" />
-            </div>
-            <div>
-              <label className={labelClass}>الألوان</label>
-              <TagInput tags={editing.colors} onChange={(colors) => setEditing({ ...editing, colors })} placeholder="اكتبي اللون ثم اضغطي Enter" />
-            </div>
+          <div>
+            <label className={labelClass}>المقاسات</label>
+            <TagInput dir="ltr" tags={editing.sizes} onChange={(sizes) => setEditing({ ...editing, sizes })} placeholder="اكتبي المقاس ثم اضغطي Enter" />
           </div>
           <div className="mt-2 flex gap-2">
             <button disabled={isSaving} type="submit" className={primaryButtonClass}>{isSaving ? "جارٍ الحفظ..." : "حفظ المنتج"}</button>

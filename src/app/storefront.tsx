@@ -155,7 +155,7 @@ function Icon({ name, size = 20 }: { name: IconName; size?: number }) {
   return <svg aria-hidden="true" fill="none" height={size} viewBox="0 0 24 24" width={size} stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.6">{content}</svg>;
 }
 
-export default function Storefront({ productData = STATIC_PRODUCT, productId = null }: { productData?: typeof STATIC_PRODUCT; productId?: number | null }) {
+export default function Storefront({ productData = STATIC_PRODUCT, productId = null, logoUrl = "" }: { productData?: typeof STATIC_PRODUCT; productId?: number | null; logoUrl?: string }) {
   const router = useRouter();
   const [locale, setLocale] = useState<Locale>("ar");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -237,7 +237,7 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
             <Link href="/" className="text-sm font-medium text-[#2a2522] hover:text-[#a1688a] transition-colors hidden sm:inline">{t.backToStore}</Link>
           </div>
           <Link href="/" className="w-1/3 flex justify-center" aria-label="Clochette">
-            <img alt="Clochette logo" src="/logo.png" className="h-9 w-auto" />
+            {logoUrl && <img alt="Clochette logo" src={logoUrl} className="h-9 w-auto" />}
           </Link>
           <div className="w-1/3 flex justify-end items-center">
             <button aria-label={t.cartTitle} className="icon-button relative" onClick={() => { setCartOpen(true); setMenuOpen(false); }} type="button">
@@ -364,7 +364,11 @@ export default function Storefront({ productData = STATIC_PRODUCT, productId = n
                     <button
                       key={item.value}
                       type="button"
-                      onClick={() => setSelectedColor(item.value)}
+                      onClick={() => {
+                        setSelectedColor(item.value);
+                        const linkedIndex = item.image ? productData.images.indexOf(item.image) : -1;
+                        if (linkedIndex >= 0) setActiveImage(linkedIndex);
+                      }}
                       className={`px-4 py-2 rounded-full border text-sm transition-colors ${selectedColor === item.value ? "border-[#a1688a] bg-[#a1688a] text-[#fffaf8]" : "border-[#d8cfc6] bg-white text-[#2a2522] hover:border-[#a1688a]"}`}
                     >
                       {item[locale]}

@@ -23,22 +23,25 @@ export async function POST(request: Request) {
       return Response.json({ error: "لم يتم اختيار أي صورة" }, { status: 400 });
     }
 
-    // التحقق من نوع الملف
-    const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/avif"];
+    // التحقق من نوع الملف (صور + فيديو للهيرو)
+    const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/avif", "image/gif", "image/svg+xml", "video/mp4", "video/webm"];
     if (!allowedTypes.includes(file.type)) {
-      return Response.json({ error: "نوع الملف غير مدعوم. استخدم JPG أو PNG أو WebP" }, { status: 400 });
+      return Response.json({ error: `نوع الملف غير مدعوم (${file.type || "غير معروف"}). استخدم JPG أو PNG أو WebP أو GIF أو SVG أو MP4` }, { status: 400 });
     }
 
-    // الحد الأقصى 5 ميغابايت
-    if (file.size > 5 * 1024 * 1024) {
-      return Response.json({ error: "حجم الصورة يجب أن لا يتجاوز 5 ميغابايت" }, { status: 400 });
+    // الحد الأقصى: 5 ميغابايت للصور و20 ميغابايت للفيديو
+    const maxSize = file.type.startsWith("video/") ? 20 * 1024 * 1024 : 5 * 1024 * 1024;
+    if (file.size > maxSize) {
+      return Response.json({ error: "حجم الملف كبير جداً (الحد 5 ميغا للصورة و20 ميغا للفيديو)" }, { status: 400 });
     }
 
     const bytes = await file.arrayBuffer();
 
-    // اسم ملف فريد
-    const ext = file.name.split(".").pop()?.toLowerCase() || "jpg";
-    const filename = `product-${Date.now()}.${ext}`;
+    // اسم ملف فريد (مع بادئة مميزة للفيديو)
+    const rawExt = file.name.includes(".") ? file.name.split(".").pop()?.toLowerCase() ?? "" : "";
+    const ext = rawExt || (file.type.startsWith("video/") ? "mp4" : file.type === "image/svg+xml" ? "svg" : "jpg");
+    const prefix = file.type.startsWith("video/") ? "hero" : "product";
+    const filename = `${prefix}-${Date.now()}.${ext}`;
 
     // رفع الصورة إلى Supabase Storage عبر REST API
     const uploadRes = await fetch(`${config.url}/storage/v1/object/${STORAGE_BUCKET}/${filename}`, {
